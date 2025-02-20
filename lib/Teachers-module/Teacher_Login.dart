@@ -12,7 +12,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.white,
     );
   }
 }

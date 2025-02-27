@@ -52,9 +52,9 @@ class _Admin_HomeState extends State<Admin_Home> {
               child: ListView(
                 children: [
                   drawerItem(Icons.home, "Home", context, Admin_Home()),
-                  drawerItem(Icons.school, "Teachers", context, Admin_Home()),
-                  drawerItem(Icons.people, "Students", context, Admin_Home()),
-                  drawerItem(Icons.article, "Notice", context, Admin_Home()),
+                  drawerItem(Icons.school, "Teachers", context, Admin_Teachers()),
+                  drawerItem(Icons.people, "Students", context, Admin_Students()),
+                  drawerItem(Icons.article, "Notice", context, Admin_Notice()),
                   drawerItem(Icons.person, "Profile", context, Admin_Home()),
                   drawerItem(Icons.logout, "Sign out", context, Admin_Home()),
                 ],
@@ -111,7 +111,7 @@ class _Admin_HomeState extends State<Admin_Home> {
       // Body Content
       body: Padding(
         padding: EdgeInsets.all(20.w),
-        child: Column(
+        child: ListView(
           children: [
             GestureDetector(
               onTap: () {
@@ -121,153 +121,165 @@ class _Admin_HomeState extends State<Admin_Home> {
                   },
                 ));
               },
-              child: Container(
-                height: 130.h,
-                margin: EdgeInsets.only(bottom: 15.h),
-                padding: EdgeInsets.all(20.w),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15.r),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.shade300,
-                        blurRadius: 5,
-                        spreadRadius: 2)
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Text("Teachers",
-                        style: GoogleFonts.poppins(
-                            fontSize: 20.sp, fontWeight: FontWeight.bold)),
-                    SizedBox(
-                      height: 20.h,
-                      width: 10.w,
-                    ),
-                    Text("100",
-                        style: GoogleFonts.poppins(
-                            fontSize: 18.sp, fontWeight: FontWeight.w500)),
-                  ],
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return Admin_Teachers();
-                  },
-                ));
-              },
-              child: Container(
-                height: 130.h,
-                margin: EdgeInsets.only(bottom: 15.h),
-                padding: EdgeInsets.all(20.w),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15.r),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.shade300,
-                        blurRadius: 5,
-                        spreadRadius: 2)
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Text("Students",
-                        style: GoogleFonts.poppins(
-                            fontSize: 20.sp, fontWeight: FontWeight.bold)),
-                    SizedBox(
-                      height: 20.h,
-                      width: 10.w,
-                    ),
-                    Text("250",
-                        style: GoogleFonts.poppins(
-                            fontSize: 18.sp, fontWeight: FontWeight.w500)),
-                  ],
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return Admin_Teachers();
-                  },
-                ));
-              },
-              child: Container(
-                height: 130.h,
-                margin: EdgeInsets.only(bottom: 15.h),
-                padding: EdgeInsets.all(20.w),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15.r),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.shade300,
-                        blurRadius: 5,
-                        spreadRadius: 2)
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Text("Time Table",
-                        style: GoogleFonts.poppins(
-                            fontSize: 20.sp, fontWeight: FontWeight.bold)),
-                  ],
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return Admin_Teachers();
-                  },
-                ));
-              },
-              child: Container(
-                height: 130.h,
-                margin: EdgeInsets.only(bottom: 15.h),
-                padding: EdgeInsets.all(20.w),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15.r),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.shade300,
-                        blurRadius: 5,
-                        spreadRadius: 2)
-                  ],
-                ),
-                child: Column(
+              child: Padding(
+                padding:  EdgeInsets.only(top: 30.h),
+                child: Container(
+                  height: 150.h,
+                  margin: EdgeInsets.only(bottom: 15.h),
+                  padding: EdgeInsets.all(20.w),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15.r),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.shade300,
+                          blurRadius: 5.r,
+                          spreadRadius: 3.r)
+                    ],
+                  ),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
                         width: 10.w,
                       ),
-                      Text("Notice",
+                      Text("Teachers",
                           style: GoogleFonts.poppins(
-                              fontSize: 20.sp, fontWeight: FontWeight.bold)),
-                    ]),
+                              fontSize: 23.sp, fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        height: 20.h,
+                        width: 10.w,
+                      ),
+                      Text("100",
+                          style: GoogleFonts.poppins(
+                              fontSize: 20.sp, fontWeight: FontWeight.w500)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return Admin_Students();
+                  },
+                ));
+              },
+              child: Padding(
+                padding:  EdgeInsets.only(top: 20.h),
+                child: Container(
+                  height: 150.h,
+                  margin: EdgeInsets.only(bottom: 15.h),
+                  padding: EdgeInsets.all(20.w),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15.r),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.shade300,
+                          blurRadius: 5.r,
+                          spreadRadius: 3.r)
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Text("Students",
+                          style: GoogleFonts.poppins(
+                              fontSize: 23.sp, fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        height: 20.h,
+                        width: 10.w,
+                      ),
+                      Text("250",
+                          style: GoogleFonts.poppins(
+                              fontSize: 20.sp, fontWeight: FontWeight.w500)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return Admin_Timetable();
+                  },
+                ));
+              },
+              child: Padding(
+                padding:  EdgeInsets.only(top: 20.h),
+                child: Container(
+                  height: 150.h,
+                  margin: EdgeInsets.only(bottom: 15.h),
+                  padding: EdgeInsets.all(20.w),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15.r),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.shade300,
+                          blurRadius: 5.r,
+                          spreadRadius: 3.r)
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Text("Time Table",
+                          style: GoogleFonts.poppins(
+                              fontSize: 23.sp, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return Admin_Notice();
+                  },
+                ));
+              },
+              child: Padding(
+                padding:  EdgeInsets.only(top: 20.h),
+                child: Container(
+                  height: 150.h,
+                  margin: EdgeInsets.only(bottom: 15.h),
+                  padding: EdgeInsets.all(20.w),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15.r),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.shade300,
+                          blurRadius: 5.r,
+                          spreadRadius: 3.r)
+                    ],
+                  ),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Text("Notice",
+                            style: GoogleFonts.poppins(
+                                fontSize: 23.sp, fontWeight: FontWeight.bold)),
+                      ]),
+                ),
               ),
             ),
           ],

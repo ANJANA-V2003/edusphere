@@ -1,4 +1,6 @@
+import 'package:edushpere/Admin_module/admin_home.dart';
 import 'package:edushpere/Admin_module/admin_login.dart';
+import 'package:edushpere/Admin_module/admin_teachers.dart';
 import 'package:edushpere/Teachers-module/Teacher_Login.dart';
 import 'package:edushpere/logo_splashscreen.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Admin_Login(),
+      home: Admin_Teachers(),
     ));
   }
 }

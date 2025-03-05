@@ -11,6 +11,135 @@ class Admin_Notice extends StatefulWidget {
 }
 
 class _Admin_NoticeState extends State<Admin_Notice> {
+  void _showAlertDialog(BuildContext context) {
+    // Set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      titleTextStyle: GoogleFonts.poppins(
+          color: Color(0xff23ADB4),
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w500),
+      title: Text("Create a notice"),
+      content: SizedBox(
+        height: 300,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 10.w),
+                  child: Text(
+                    "Title",
+                    style: GoogleFonts.poppins(
+                        fontSize: 16.sp, fontWeight: FontWeight.w400),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Padding(
+              padding: EdgeInsets.all(2),
+              child: TextFormField(
+                decoration: InputDecoration(
+                    fillColor: Color(0xffA39C9C),
+                    filled: true,
+                    hintText: "Enter title",
+                    hintStyle: GoogleFonts.poppins(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.all(Radius.circular(12.r)))),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 10.w),
+                  child: Text(
+                    "Details",
+                    style: GoogleFonts.poppins(
+                        fontSize: 16.sp, fontWeight: FontWeight.w400),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Padding(
+              padding: EdgeInsets.all(2),
+              child: TextFormField(
+                decoration: InputDecoration( fillColor: Color(0xffA39C9C),
+                    filled: true,
+                    hintText: "Enter details",
+                    hintStyle: GoogleFonts.poppins(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black),
+                    border: OutlineInputBorder(borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.all(Radius.circular(12.r)))),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 10.w),
+                  child: Text(
+                    "Date",
+                    style: GoogleFonts.poppins(
+                        fontSize: 16.sp, fontWeight: FontWeight.w400),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Padding(
+              padding: EdgeInsets.all(2),
+              child: TextFormField(
+                decoration: InputDecoration( fillColor: Color(0xffA39C9C),
+                    filled: true,
+                    hintText: "dd/mm/yyyy",
+                    hintStyle: GoogleFonts.poppins(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black),
+                    border: OutlineInputBorder(borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.all(Radius.circular(12.r)))),
+              ),
+            )
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          child: Text("Save"),
+          onPressed: () {
+            print("pressed");
+            Navigator.of(context).pop(); // Close the dialog
+          },
+        ),
+      ],
+    );
+
+    // Show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,14 +211,13 @@ class _Admin_NoticeState extends State<Admin_Notice> {
       floatingActionButton: FloatingActionButton(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
-        backgroundColor: Color(0xff23ADB4),child: Icon(Icons.add,color: Colors.white,size: 35.sp,),
-        onPressed: () {
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //       builder: (context) {},
-          //     ));
-        },
+        backgroundColor: Color(0xff23ADB4),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 35.sp,
+        ),
+        onPressed: () => _showAlertDialog(context),
       ),
     );
   }

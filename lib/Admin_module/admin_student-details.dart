@@ -35,7 +35,7 @@ class _Admin_Student_detailsState extends State<Admin_Student_details> {
             CircleAvatar(
               radius: 45.r,
               backgroundImage: AssetImage(
-                  "assets/Elsa.png"), // Replace with actual image path
+                  "assets/images/Elsa.png"), // Replace with actual image path
               backgroundColor: Colors.grey[200],
             ),
             SizedBox(height: 10),

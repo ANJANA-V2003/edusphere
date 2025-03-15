@@ -34,13 +34,13 @@ class _Admin_Teacher_detailsState extends State<Admin_Teacher_details> {
             CircleAvatar(
               radius: 45.r,
               backgroundImage: AssetImage(
-                  "assets/catherine.png"), // Replace with actual image path
+                  "assets/images/catherine.png"), // Replace with actual image path
               backgroundColor: Colors.grey[200],
             ),
             SizedBox(height: 10),
             // Student Name
             Text(
-              "Chatherine",
+              "Catherine",
               style: GoogleFonts.poppins(
                   fontSize: 22, fontWeight: FontWeight.w600),
             ),
@@ -103,10 +103,10 @@ class _Admin_Teacher_detailsState extends State<Admin_Teacher_details> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(width: 50.w,),
-                          Text("Clases :",
+                          Text("Classes :",
                               style: GoogleFonts.poppins(
                                   fontSize: 18, fontWeight: FontWeight.w600)),
-                          SizedBox(width: 83.w,),
+                          SizedBox(width: 70.w,),
                           Text(" 1,3,4",
                               style: GoogleFonts.poppins(
                                   fontSize: 16, fontWeight: FontWeight.w500)),

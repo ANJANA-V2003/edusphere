@@ -89,7 +89,7 @@ class _Admin_StudentsState extends State<Admin_Students> {
                     child: Row(
                       children: [
                         CircleAvatar(
-                            backgroundImage: AssetImage("assets/Elsa.png")),
+                            backgroundImage: AssetImage("assets/images/Elsa.png")),
                         SizedBox(width: 10.w),
                         Expanded(
                             child: Text("Elsa",

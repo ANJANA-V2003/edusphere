@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Admin_Notice extends StatefulWidget {
@@ -75,14 +76,16 @@ class _Admin_NoticeState extends State<Admin_Notice> {
             Padding(
               padding: EdgeInsets.all(2),
               child: TextFormField(
-                decoration: InputDecoration( fillColor: Color(0xffA39C9C),
+                decoration: InputDecoration(
+                    fillColor: Color(0xffA39C9C),
                     filled: true,
                     hintText: "Enter details",
                     hintStyle: GoogleFonts.poppins(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.black),
-                    border: OutlineInputBorder(borderSide: BorderSide.none,
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
                         borderRadius: BorderRadius.all(Radius.circular(12.r)))),
               ),
             ),
@@ -107,14 +110,16 @@ class _Admin_NoticeState extends State<Admin_Notice> {
             Padding(
               padding: EdgeInsets.all(2),
               child: TextFormField(
-                decoration: InputDecoration( fillColor: Color(0xffA39C9C),
+                decoration: InputDecoration(
+                    fillColor: Color(0xffA39C9C),
                     filled: true,
                     hintText: "dd/mm/yyyy",
                     hintStyle: GoogleFonts.poppins(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.black),
-                    border: OutlineInputBorder(borderSide: BorderSide.none,
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
                         borderRadius: BorderRadius.all(Radius.circular(12.r)))),
               ),
             )
@@ -186,7 +191,7 @@ class _Admin_NoticeState extends State<Admin_Notice> {
                     decoration: BoxDecoration(
                         color: Colors.grey,
                         image: DecorationImage(
-                            image: AssetImage("assets/event.png"),
+                            image: AssetImage("assets/images/event.png"),
                             fit: BoxFit.cover)),
                   ),
                   SizedBox(width: 40.w),
@@ -195,12 +200,20 @@ class _Admin_NoticeState extends State<Admin_Notice> {
                           style: TextStyle(
                               fontSize: 16.sp, fontWeight: FontWeight.w500))),
                   Padding(
-                    padding: EdgeInsets.only(right: 10.w),
-                    child: Icon(Icons.edit),
+                    padding:  EdgeInsets.only(right: 15.w),
+                    child: SvgPicture.asset(
+                      "assets/icons/edit_icon.svg",
+                      height: 19.h,
+                      width: 19.w,
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(right: 5.w),
-                    child: Icon(Icons.delete_outline_rounded),
+                    child:SvgPicture.asset(
+                      "assets/icons/delete_icon.svg",
+                      height: 19.h,
+                      width: 19.w,
+                    ),
                   ),
                 ],
               ),

@@ -1,5 +1,8 @@
+import 'package:edushpere/Teachers-module/Teacher_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TeacherLogin extends StatefulWidget {
   const TeacherLogin({super.key});
@@ -15,7 +18,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
   final pswdctrl = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Form(
@@ -32,40 +35,42 @@ class _TeacherLoginState extends State<TeacherLogin> {
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(41.r),
                             bottomRight: Radius.circular(41.r))),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 30.w),
-                          child: Text(
-                            "LOGIN",
-                            style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 48.sp),
+                    child: SafeArea(
+                      child: Column(
+                        children: [ Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 30.w, ),
+                              child: Text(
+                                "Welcome Back",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 35.sp),
+                              ),
+                            )
+                          ],
+                        ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 30.w),
+                                child: Text(
+                                  "Login to continue",
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 25.sp),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
+                        ],
+                      ),
                     ),
                   )
                 ],
               ),
-              // Padding(
-              //   padding: EdgeInsets.only(left: 50.w, right: 50.w, top: 200.h),
-              //   child: Obx(() => TextFormField(
-              //     onChanged: (value) {
-              //       loginController.username.value = value;
-              //     },
-              //     decoration: InputDecoration(
-              //         fillColor: Color(0xffD9D9D9),
-              //         filled: true,
-              //         hintText: "Username",
-              //         hintStyle: GoogleFonts.poppins(
-              //             fontSize: 16.sp, fontWeight: FontWeight.w600),
-              //         border: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(12.r),
-              //             borderSide: BorderSide.none)),
-              //   )),
-              // ),
               Padding(
                 padding: EdgeInsets.only(left: 50.w, right: 50.w, top: 200.h),
                 child: TextFormField(
@@ -80,29 +85,12 @@ class _TeacherLoginState extends State<TeacherLogin> {
                       filled: true,
                       hintText: "Username",
                       hintStyle: GoogleFonts.poppins(
-                          fontSize: 16.sp, fontWeight: FontWeight.w600),
+                          fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.r),
+                          borderRadius: BorderRadius.circular(10.r),
                           borderSide: BorderSide.none)),
                 ),
               ),
-              // Padding(
-              //   padding: EdgeInsets.only(left: 50.w, right: 50.w, top: 45.h),
-              //   child: Obx(() => TextFormField(
-              //     onChanged: (value) {
-              //       loginController.password.value = value;
-              //     },
-              //     decoration: InputDecoration(
-              //         fillColor: Color(0xffD9D9D9),
-              //         filled: true,
-              //         hintText: "Password",
-              //         hintStyle: GoogleFonts.poppins(
-              //             fontSize: 16.sp, fontWeight: FontWeight.w600),
-              //         border: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(12.r),
-              //             borderSide: BorderSide.none)),
-              //   )),
-              // ),
               Padding(
                 padding: EdgeInsets.only(left: 50.w, right: 50.w, top: 45.h),
                 child: TextFormField(
@@ -117,9 +105,9 @@ class _TeacherLoginState extends State<TeacherLogin> {
                       filled: true,
                       hintText: "Password",
                       hintStyle: GoogleFonts.poppins(
-                          fontSize: 16.sp, fontWeight: FontWeight.w600),
+                          fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.r),
+                          borderRadius: BorderRadius.circular(10.r),
                           borderSide: BorderSide.none)),
                 ),
               ),
@@ -147,21 +135,11 @@ class _TeacherLoginState extends State<TeacherLogin> {
                     child: GestureDetector(
                       onTap: () {
                         if (form_key.currentState!.validate()) {
-                          if (namectrl.text == "Anjana" && pswdctrl.text == "anjana") {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return Admin_Home();
-                              },
-                            ));
-                          }
-                          else{
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Invalid username or password!'),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                          }
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return Teacher_Home();
+                            },
+                          ));
                         }
                       },
                       child: Container(
@@ -184,44 +162,6 @@ class _TeacherLoginState extends State<TeacherLogin> {
                   )
                 ],
               )
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Padding(
-              //       padding: EdgeInsets.only(top: 120.h),
-              //       child: GestureDetector(
-              //         onTap: () {
-              //           // Check if username and password are valid
-              //           if (loginController.username.value.isNotEmpty &&
-              //               loginController.password.value.isNotEmpty) {
-              //             // If valid, navigate to Home page
-              //             Get.to(() => Admin_Home());
-              //           } else {
-              //             // Show an error message if fields are empty
-              //             Get.snackbar('Error', 'Please enter both username and password.',
-              //                 snackPosition: SnackPosition.BOTTOM);
-              //           }
-              //         },
-              //         child: Container(
-              //           height: 50.h,
-              //           width: 150.w,
-              //           decoration: BoxDecoration(
-              //               color: Color(0xff23ADB4),
-              //               borderRadius: BorderRadius.circular(12.r)),
-              //           child: Center(
-              //             child: Text(
-              //               "LOGIN",
-              //               style: GoogleFonts.poppins(
-              //                   fontWeight: FontWeight.w600,
-              //                   fontSize: 20.sp,
-              //                   color: Colors.white),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     )
-              //   ],
-              // )
             ],
           ),
         ),

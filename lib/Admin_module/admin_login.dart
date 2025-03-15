@@ -56,23 +56,7 @@ class _Admin_LoginState extends State<Admin_Login> {
                   )
                 ],
               ),
-              // Padding(
-              //   padding: EdgeInsets.only(left: 50.w, right: 50.w, top: 200.h),
-              //   child: Obx(() => TextFormField(
-              //     onChanged: (value) {
-              //       loginController.username.value = value;
-              //     },
-              //     decoration: InputDecoration(
-              //         fillColor: Color(0xffD9D9D9),
-              //         filled: true,
-              //         hintText: "Username",
-              //         hintStyle: GoogleFonts.poppins(
-              //             fontSize: 16.sp, fontWeight: FontWeight.w600),
-              //         border: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(12.r),
-              //             borderSide: BorderSide.none)),
-              //   )),
-              // ),
+
               Padding(
                 padding: EdgeInsets.only(left: 50.w, right: 50.w, top: 200.h),
                 child: TextFormField(
@@ -87,29 +71,12 @@ class _Admin_LoginState extends State<Admin_Login> {
                       filled: true,
                       hintText: "Username",
                       hintStyle: GoogleFonts.poppins(
-                          fontSize: 16.sp, fontWeight: FontWeight.w600),
+                          fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.r),
+                          borderRadius: BorderRadius.circular(10.r),
                           borderSide: BorderSide.none)),
                 ),
               ),
-              // Padding(
-              //   padding: EdgeInsets.only(left: 50.w, right: 50.w, top: 45.h),
-              //   child: Obx(() => TextFormField(
-              //     onChanged: (value) {
-              //       loginController.password.value = value;
-              //     },
-              //     decoration: InputDecoration(
-              //         fillColor: Color(0xffD9D9D9),
-              //         filled: true,
-              //         hintText: "Password",
-              //         hintStyle: GoogleFonts.poppins(
-              //             fontSize: 16.sp, fontWeight: FontWeight.w600),
-              //         border: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(12.r),
-              //             borderSide: BorderSide.none)),
-              //   )),
-              // ),
               Padding(
                 padding: EdgeInsets.only(left: 50.w, right: 50.w, top: 45.h),
                 child: TextFormField(
@@ -124,9 +91,9 @@ class _Admin_LoginState extends State<Admin_Login> {
                       filled: true,
                       hintText: "Password",
                       hintStyle: GoogleFonts.poppins(
-                          fontSize: 16.sp, fontWeight: FontWeight.w600),
+                          fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.r),
+                          borderRadius: BorderRadius.circular(10.r),
                           borderSide: BorderSide.none)),
                 ),
               ),

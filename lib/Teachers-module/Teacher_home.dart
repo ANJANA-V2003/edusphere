@@ -1,3 +1,7 @@
+import 'package:edushpere/Teachers-module/Teacher_examview.dart';
+import 'package:edushpere/Teachers-module/Teacher_homework.dart';
+import 'package:edushpere/Teachers-module/Teacher_quiz.dart';
+import 'package:edushpere/Teachers-module/Teacher_students.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -139,84 +143,101 @@ class _Teacher_HomeState extends State<Teacher_Home> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
-                height: 175.h,
-                width: 175.w,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 2, color: Color(0xff23ADB4)),
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [SvgPicture.asset("assets/icons/quiz.svg")],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Create quiz",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
-                              color: Color(0xff23ADB4)),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "MCQ or written",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp,
-                              color: Colors.grey.shade500),
-                        )
-                      ],
-                    )
-                  ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return Teacher_Quiz();
+                    },
+                  ));
+                },
+                child: Container(
+                  height: 175.h,
+                  width: 175.w,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 2, color: Color(0xff23ADB4)),
+                      borderRadius: BorderRadius.circular(10.r)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [SvgPicture.asset("assets/icons/quiz.svg")],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Create quiz",
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                                color: Color(0xff23ADB4)),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "MCQ or written",
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14.sp,
+                                color: Colors.grey.shade500),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-              Container(
-                height: 175.h,
-                width: 175.w,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 2, color: Color(0xff23ADB4)),
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [SvgPicture.asset("assets/icons/books.svg")],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "10 Total",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
-                              color: Color(0xff23ADB4)),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Homeworks pushed",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp,
-                              color: Colors.grey.shade500),
-                        )
-                      ],
-                    )
-                  ],
+              GestureDetector( onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return Teacher_Homework();
+                  },
+                ));
+              },
+                child: Container(
+                  height: 175.h,
+                  width: 175.w,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 2, color: Color(0xff23ADB4)),
+                      borderRadius: BorderRadius.circular(10.r)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [SvgPicture.asset("assets/icons/books.svg")],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "10 Total",
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                                color: Color(0xff23ADB4)),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Homeworks pushed",
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14.sp,
+                                color: Colors.grey.shade500),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               )
             ],
@@ -227,84 +248,100 @@ class _Teacher_HomeState extends State<Teacher_Home> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
-                height: 175.h,
-                width: 175.w,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 2, color: Color(0xff23ADB4)),
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [SvgPicture.asset("assets/icons/students.svg")],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "50 Total",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
-                              color: Color(0xff23ADB4)),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Students you have",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp,
-                              color: Colors.grey.shade500),
-                        )
-                      ],
-                    )
-                  ],
+              GestureDetector( onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return Teacher_Students();
+                  },
+                ));
+              },
+                child: Container(
+                  height: 175.h,
+                  width: 175.w,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 2, color: Color(0xff23ADB4)),
+                      borderRadius: BorderRadius.circular(10.r)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [SvgPicture.asset("assets/icons/students.svg")],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "50 Total",
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                                color: Color(0xff23ADB4)),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Students you have",
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14.sp,
+                                color: Colors.grey.shade500),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-              Container(
-                height: 175.h,
-                width: 175.w,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 2, color: Color(0xff23ADB4)),
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [SvgPicture.asset("assets/icons/class.svg")],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "5 Total",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
-                              color: Color(0xff23ADB4)),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Exams you took",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp,
-                              color: Colors.grey.shade500),
-                        )
-                      ],
-                    )
-                  ],
+              GestureDetector( onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return Teacher_Examview();
+                  },
+                ));
+              },
+                child: Container(
+                  height: 175.h,
+                  width: 175.w,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 2, color: Color(0xff23ADB4)),
+                      borderRadius: BorderRadius.circular(10.r)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [SvgPicture.asset("assets/icons/class.svg")],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "5 Total",
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                                color: Color(0xff23ADB4)),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Exams you took",
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14.sp,
+                                color: Colors.grey.shade500),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               )
             ],

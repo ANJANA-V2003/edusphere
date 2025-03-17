@@ -1,3 +1,5 @@
+import 'package:edushpere/Teachers-module/Teacher_add_exam.dart';
+import 'package:edushpere/Teachers-module/Teacher_exam_review.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -57,7 +59,7 @@ class _Teacher_ExamviewState extends State<Teacher_Examview> {
                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h),
                 child: Container(
                   width: 380.w,
-                  height: 150.h,
+                  height: 200.h,
                   padding: EdgeInsets.all(10.w),
                   decoration: BoxDecoration(
                     border: Border.all(width: 1.w, color: Colors.grey.shade400),
@@ -76,14 +78,14 @@ class _Teacher_ExamviewState extends State<Teacher_Examview> {
                                     fontSize: 18.sp,
                                     fontWeight: FontWeight.w600)),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 10.w, top: 5.h),
-                            child: Text("Due : 17-03-2025",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xff0B99A0))),
-                          ),
+                          // Padding(
+                          //   padding: EdgeInsets.only(right: 10.w, top: 5.h),
+                          //   child: Text("Due : 17-03-2025",
+                          //       style: GoogleFonts.poppins(
+                          //           fontSize: 16.sp,
+                          //           fontWeight: FontWeight.w600,
+                          //           color: Color(0xff0B99A0))),
+                          // ),
                         ],
                       ),
                       Row(
@@ -116,7 +118,44 @@ class _Teacher_ExamviewState extends State<Teacher_Examview> {
                             ),
                           )
                         ],
-                      )
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 10.w, top: 5.h),
+                            child: Text("Submitted : 5",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w600)),
+                          ),
+                          GestureDetector(onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return Teacher_ExamReview();
+                            },));
+                          },
+                            child: Container(
+                              height: 45.h,
+                              width: 150.w,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.r),
+                                  color: Color(0xff23ADB4)),
+                              child: Center(
+                                child: Text(
+                                  "Open",
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18.sp,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -124,6 +163,22 @@ class _Teacher_ExamviewState extends State<Teacher_Examview> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        shape: CircleBorder(),
+        backgroundColor: Color(0xff23ADB4),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 35.sp,
+        ),
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) {
+              return Teacher_AddExam();
+            },
+          ));
+        },
       ),
     );
   }

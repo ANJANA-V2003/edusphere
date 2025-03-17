@@ -24,7 +24,7 @@ class _Teacher_HomeState extends State<Teacher_Home> {
           Row(
             children: [
               Container(
-                height: 150.h,
+                height: 140.h,
                 width: 412.w,
                 decoration: BoxDecoration(
                     color: Color(0xff23ADB4),
@@ -65,7 +65,7 @@ class _Teacher_HomeState extends State<Teacher_Home> {
                                   GestureDetector(
                                     onTap: () {},
                                     child: SvgPicture.asset(
-                                        "assets/icons/lets-icons_bell-light.svg"),
+                                        "assets/icons/lets-icons_bell-light.svg",width: 30.w,),
                                   )
                                 ],
                               ),
@@ -91,7 +91,7 @@ class _Teacher_HomeState extends State<Teacher_Home> {
             ],
           ),
           SizedBox(
-            height: 20.h,
+            height: 10.h,
           ),
           Padding(
             padding: EdgeInsets.only(left: 20.w, right: 20.w),
@@ -104,7 +104,7 @@ class _Teacher_HomeState extends State<Teacher_Home> {
                       color: Colors.grey.shade600),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.r),
-                      borderSide: BorderSide(color: Colors.grey.shade600))),
+                      borderSide: BorderSide(color: Colors.grey.shade600,width: 2))),
             ),
           ),
           SizedBox(

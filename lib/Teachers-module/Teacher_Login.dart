@@ -1,3 +1,4 @@
+import 'package:edushpere/Teachers-module/Teacher_Navigationbar.dart';
 import 'package:edushpere/Teachers-module/Teacher_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -137,7 +138,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
                         if (form_key.currentState!.validate()) {
                           Navigator.push(context, MaterialPageRoute(
                             builder: (context) {
-                              return Teacher_Home();
+                              return Teacher_Navigationbar();
                             },
                           ));
                         }

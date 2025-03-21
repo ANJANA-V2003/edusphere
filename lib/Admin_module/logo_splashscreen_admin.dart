@@ -1,15 +1,29 @@
+import 'dart:async';
+
+import 'package:edushpere/Admin_module/admin_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Logo_Splashscreen extends StatefulWidget {
-  const Logo_Splashscreen({super.key});
+class Logo_Splashscreen_admin extends StatefulWidget {
+  const Logo_Splashscreen_admin({super.key});
 
   @override
-  State<Logo_Splashscreen> createState() => _Logo_SplashscreenState();
+  State<Logo_Splashscreen_admin> createState() => _Logo_Splashscreen_adminState();
 }
 
-class _Logo_SplashscreenState extends State<Logo_Splashscreen> {
+class _Logo_Splashscreen_adminState extends State<Logo_Splashscreen_admin> {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Timer(Duration(seconds: 3), () {
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return Admin_Login();
+        },
+      ));
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +36,7 @@ class _Logo_SplashscreenState extends State<Logo_Splashscreen> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(
-                            "assets/Untitled_design-removebg-preview 1.png"))
+                            "assets/images/Untitled_design-removebg-preview 1.png"))
                 ),
               )
             ],

@@ -32,28 +32,28 @@ class _Teacher_NavigationbarState extends State<Teacher_Navigationbar> {
         items: [
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.update_rounded,
+                Icons.home,
                 color: Colors.white,
               ),
               label: "Home",
               backgroundColor: Colors.black),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.call,
+                Icons.date_range_outlined,
                 color: Colors.white,
               ),
               label: "Calendar",
               backgroundColor: Colors.black),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.people,
+               CupertinoIcons.chat_bubble_2_fill,
                 color: Colors.white,
               ),
               label: "Message",
               backgroundColor: Colors.black),
           BottomNavigationBarItem(
               icon: Icon(
-                CupertinoIcons.chat_bubble_2_fill,
+                CupertinoIcons.person,
                 color: Colors.white,
               ),
               label: "Profile",

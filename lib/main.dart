@@ -1,4 +1,6 @@
 import 'package:edushpere/Teachers-module/Teacher_Login.dart';
+import 'package:edushpere/Admin_module/logo_splashscreen_admin.dart';
+import 'package:edushpere/Teachers-module/splash_screen_teachers.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
                 useMaterial3: true,
               ),
-              home: TeacherLogin(),
+              home: Splashscreen_teachers(),
             ));
   }
 }

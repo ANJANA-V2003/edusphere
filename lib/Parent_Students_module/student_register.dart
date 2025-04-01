@@ -1,93 +1,64 @@
-import 'package:edushpere/Parent_Students_module/student_register.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Parents_Register extends StatefulWidget {
-  const Parents_Register({super.key});
+class Student_Register extends StatefulWidget {
+  const Student_Register({super.key});
 
   @override
-  State<Parents_Register> createState() => _Parents_RegisterState();
+  State<Student_Register> createState() => _Student_RegisterState();
 }
 
-class _Parents_RegisterState extends State<Parents_Register> {
+class _Student_RegisterState extends State<Student_Register> {
   final form_key = GlobalKey<FormState>();
 
-  final namectrl = TextEditingController();
-  final pswdctrl = TextEditingController();
+  final fnamectrl = TextEditingController();
+  final lnamectrl = TextEditingController();
   final mailctrl = TextEditingController();
-  final idctrl = TextEditingController();
+  final numctrl = TextEditingController();
+  final placectrl = TextEditingController();
+  final stdnt_idctrl = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(CupertinoIcons.back)),
+        title: Text(
+          "Student Registration",
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w600,
+            fontSize: 22.sp,
+            color: Colors.black,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Form(
           key: form_key,
           child: Column(
             children: [
-              Row(
-                children: [
-                  Container(
-                    height: 210.h,
-                    width: 412.w,
-                    decoration: BoxDecoration(
-                        color: Color(0xff23ADB4),
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(41.r),
-                            bottomRight: Radius.circular(41.r))),
-                    child: SafeArea(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: 30.w,
-                                ),
-                                child: Text(
-                                  "Let's Get Started",
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 35.sp),
-                                ),
-                              )
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: 30.w),
-                                child: Text(
-                                  "Register Now",
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 23.sp),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
               Padding(
-                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 80.h),
+                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 30.h),
                 child: TextFormField(
-                  controller: namectrl,
+                  controller: fnamectrl,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return "Empty username";
+                      return "Empty first name";
                     }
                   },
                   decoration: InputDecoration(
                       fillColor: Color(0xffD9D9D9),
                       filled: true,
-                      hintText: "Username",
+                      hintText: "First Name",
                       hintStyle: GoogleFonts.poppins(
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
@@ -100,16 +71,16 @@ class _Parents_RegisterState extends State<Parents_Register> {
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
                 child: TextFormField(
-                  controller: pswdctrl,
+                  controller: lnamectrl,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return "Empty password";
+                      return "Empty last name";
                     }
                   },
                   decoration: InputDecoration(
                       fillColor: Color(0xffD9D9D9),
                       filled: true,
-                      hintText: "Password",
+                      hintText: "Last Name",
                       hintStyle: GoogleFonts.poppins(
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
@@ -144,7 +115,7 @@ class _Parents_RegisterState extends State<Parents_Register> {
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
                 child: TextFormField(
-                  controller: idctrl,
+                  controller: stdnt_idctrl,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Empty Id";
@@ -153,7 +124,7 @@ class _Parents_RegisterState extends State<Parents_Register> {
                   decoration: InputDecoration(
                       fillColor: Color(0xffD9D9D9),
                       filled: true,
-                      hintText: "ID number",
+                      hintText: "Student ID",
                       hintStyle: GoogleFonts.poppins(
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
@@ -170,13 +141,13 @@ class _Parents_RegisterState extends State<Parents_Register> {
                     padding: EdgeInsets.only(top: 120.h),
                     child: GestureDetector(
                       onTap: () {
-                        if (form_key.currentState!.validate()) {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return Student_Register();
-                            },
-                          ));
-                        }
+                        // if (form_key.currentState!.validate()) {
+                        //   Navigator.push(context, MaterialPageRoute(
+                        //     builder: (context) {
+                        //       return Teacher_Navigationbar();
+                        //     },
+                        //   ));
+                        // }
                       },
                       child: Container(
                         height: 50.h,
@@ -212,11 +183,11 @@ class _Parents_RegisterState extends State<Parents_Register> {
                     ),
                     TextButton(
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return Parents_Register();
-                            },
-                          ));
+                          // Navigator.push(context, MaterialPageRoute(
+                          //   builder: (context) {
+                          //     return Parents_Register();
+                          //   },
+                          // ));
                         },
                         child: Text(
                           "Log in",

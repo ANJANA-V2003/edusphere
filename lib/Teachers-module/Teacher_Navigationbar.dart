@@ -4,6 +4,7 @@ import 'package:edushpere/Teachers-module/Teacher_message.dart';
 import 'package:edushpere/Teachers-module/Teacher_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Teacher_Navigationbar extends StatefulWidget {
   const Teacher_Navigationbar({super.key});
@@ -25,47 +26,51 @@ class _Teacher_NavigationbarState extends State<Teacher_Navigationbar> {
       _Index = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _list.elementAt(_Index),
+    return Scaffold(
+      body: _list.elementAt(_Index),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.home,
-                color: Colors.white,
               ),
               label: "Home",
-              backgroundColor: Colors.black),
+              backgroundColor: Color(0xffD9D9D9)),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.date_range_outlined,
-                color: Colors.white,
+
               ),
               label: "Calendar",
-              backgroundColor: Colors.black),
+              backgroundColor: Color(0xffD9D9D9)),
           BottomNavigationBarItem(
               icon: Icon(
-               CupertinoIcons.chat_bubble_2_fill,
-                color: Colors.white,
+                CupertinoIcons.chat_bubble_2_fill,
               ),
               label: "Message",
-              backgroundColor: Colors.black),
+              backgroundColor: Color(0xffD9D9D9)),
           BottomNavigationBarItem(
               icon: Icon(
                 CupertinoIcons.person,
-                color: Colors.white,
+
               ),
               label: "Profile",
-              backgroundColor: Colors.black),
+              backgroundColor: Color(0xffD9D9D9)),
         ],
         type: BottomNavigationBarType.shifting,
         currentIndex: _Index,
-        selectedItemColor: Colors.white,selectedIconTheme: IconThemeData(color: Colors.green,),
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        selectedItemColor:Color(0xff0B99A0),
+        selectedIconTheme: IconThemeData(color: Color(0xff0B99A0)),
+        selectedLabelStyle: GoogleFonts.poppins(
+            fontWeight: FontWeight.bold,),
         iconSize: 30,
         onTap: _onItemTapped,
-        elevation: 5,backgroundColor: Colors.green[600],
-      ),);
+        elevation: 5,
+        backgroundColor: Colors.green[600],
+      ),
+    );
   }
 }

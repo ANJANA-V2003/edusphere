@@ -1,26 +1,23 @@
-import 'package:edushpere/Teachers-module/Teacher_Navigationbar.dart';
-import 'package:edushpere/Teachers-module/Teacher_home.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:edushpere/Parent_Students_module/parents_navigationbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TeacherLogin extends StatefulWidget {
-  const TeacherLogin({super.key});
+class Parents_Login extends StatefulWidget {
+  const Parents_Login({super.key});
 
   @override
-  State<TeacherLogin> createState() => _TeacherLoginState();
+  State<Parents_Login> createState() => _Parents_LoginState();
 }
 
-class _TeacherLoginState extends State<TeacherLogin> {
+class _Parents_LoginState extends State<Parents_Login> {
   final form_key = GlobalKey<FormState>();
 
   final namectrl = TextEditingController();
   final pswdctrl = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
+    return Scaffold(backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Form(
           key: form_key,
@@ -92,7 +89,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
                         borderSide:
-                            BorderSide(width: 1.w, color: Colors.grey.shade400),
+                        BorderSide(width: 1.w, color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(10.r),
                       )),
                 ),
@@ -115,7 +112,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.r),
                         borderSide:
-                            BorderSide(width: 1.w, color: Colors.grey.shade400),
+                        BorderSide(width: 1.w, color: Colors.grey.shade400),
                       )),
                 ),
               ),
@@ -145,7 +142,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
                         if (form_key.currentState!.validate()) {
                           Navigator.push(context, MaterialPageRoute(
                             builder: (context) {
-                              return Teacher_Navigationbar();
+                              return Parents_Navigationbar();
                             },
                           ));
                         }
@@ -173,7 +170,6 @@ class _TeacherLoginState extends State<TeacherLogin> {
             ],
           ),
         ),
-      ),
-    );
+      ),);
   }
 }

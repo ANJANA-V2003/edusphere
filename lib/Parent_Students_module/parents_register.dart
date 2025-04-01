@@ -1,22 +1,21 @@
-import 'package:edushpere/Teachers-module/Teacher_Navigationbar.dart';
-import 'package:edushpere/Teachers-module/Teacher_home.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TeacherLogin extends StatefulWidget {
-  const TeacherLogin({super.key});
+class Parents_Register extends StatefulWidget {
+  const Parents_Register({super.key});
 
   @override
-  State<TeacherLogin> createState() => _TeacherLoginState();
+  State<Parents_Register> createState() => _Parents_RegisterState();
 }
 
-class _TeacherLoginState extends State<TeacherLogin> {
+class _Parents_RegisterState extends State<Parents_Register> {
   final form_key = GlobalKey<FormState>();
 
   final namectrl = TextEditingController();
   final pswdctrl = TextEditingController();
+  final mailctrl = TextEditingController();
+  final idctrl = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,10 +45,10 @@ class _TeacherLoginState extends State<TeacherLogin> {
                                   left: 30.w,
                                 ),
                                 child: Text(
-                                  "Welcome Back",
+                                  "Let's Get Started",
                                   style: GoogleFonts.poppins(
                                       color: Colors.white,
-                                      fontWeight: FontWeight.w700,
+                                      fontWeight: FontWeight.w600,
                                       fontSize: 35.sp),
                                 ),
                               )
@@ -60,11 +59,11 @@ class _TeacherLoginState extends State<TeacherLogin> {
                               Padding(
                                 padding: EdgeInsets.only(left: 30.w),
                                 child: Text(
-                                  "Login to continue",
+                                  "Register Now",
                                   style: GoogleFonts.poppins(
                                       color: Colors.white,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 25.sp),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 23.sp),
                                 ),
                               )
                             ],
@@ -76,7 +75,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 200.h),
+                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 80.h),
                 child: TextFormField(
                   controller: namectrl,
                   validator: (value) {
@@ -93,12 +92,12 @@ class _TeacherLoginState extends State<TeacherLogin> {
                       border: OutlineInputBorder(
                         borderSide:
                             BorderSide(width: 1.w, color: Colors.grey.shade400),
-                        borderRadius: BorderRadius.circular(10.r),
+                        borderRadius: BorderRadius.circular(8.r),
                       )),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 45.h),
+                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
                 child: TextFormField(
                   controller: pswdctrl,
                   validator: (value) {
@@ -113,27 +112,55 @@ class _TeacherLoginState extends State<TeacherLogin> {
                       hintStyle: GoogleFonts.poppins(
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.r),
                         borderSide:
                             BorderSide(width: 1.w, color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(8.r),
                       )),
                 ),
               ),
-              Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 50.w, top: 10.h),
-                    child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          "Forgot password ?",
-                          style: GoogleFonts.poppins(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
-                        )),
-                  )
-                ],
+              Padding(
+                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
+                child: TextFormField(
+                  controller: mailctrl,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Empty email";
+                    }
+                  },
+                  decoration: InputDecoration(
+                      fillColor: Color(0xffD9D9D9),
+                      filled: true,
+                      hintText: "Email",
+                      hintStyle: GoogleFonts.poppins(
+                          fontSize: 15.sp, fontWeight: FontWeight.w600),
+                      border: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 1.w, color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(8.r),
+                      )),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
+                child: TextFormField(
+                  controller: idctrl,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Empty Id";
+                    }
+                  },
+                  decoration: InputDecoration(
+                      fillColor: Color(0xffD9D9D9),
+                      filled: true,
+                      hintText: "ID number",
+                      hintStyle: GoogleFonts.poppins(
+                          fontSize: 15.sp, fontWeight: FontWeight.w600),
+                      border: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 1.w, color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(8.r),
+                      )),
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -142,25 +169,25 @@ class _TeacherLoginState extends State<TeacherLogin> {
                     padding: EdgeInsets.only(top: 120.h),
                     child: GestureDetector(
                       onTap: () {
-                        if (form_key.currentState!.validate()) {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return Teacher_Navigationbar();
-                            },
-                          ));
-                        }
+                        // if (form_key.currentState!.validate()) {
+                        //   Navigator.push(context, MaterialPageRoute(
+                        //     builder: (context) {
+                        //       return Teacher_Navigationbar();
+                        //     },
+                        //   ));
+                        // }
                       },
                       child: Container(
                         height: 50.h,
-                        width: 150.w,
+                        width: 300.w,
                         decoration: BoxDecoration(
                             color: Color(0xff23ADB4),
                             borderRadius: BorderRadius.circular(12.r)),
                         child: Center(
                           child: Text(
-                            "LOGIN",
+                            "Create a new account",
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w700,
                                 fontSize: 20.sp,
                                 color: Colors.white),
                           ),
@@ -169,7 +196,37 @@ class _TeacherLoginState extends State<TeacherLogin> {
                     ),
                   )
                 ],
-              )
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Already have an account ? ",
+                      style: GoogleFonts.poppins(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff757575)),
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return Parents_Register();
+                            },
+                          ));
+                        },
+                        child: Text(
+                          "Log in",
+                          style: GoogleFonts.poppins(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xff23ADB4)),
+                        ))
+                  ],
+                ),
+              ),
             ],
           ),
         ),

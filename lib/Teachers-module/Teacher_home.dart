@@ -101,7 +101,7 @@ class _Teacher_HomeState extends State<Teacher_Home> {
           Padding(
             padding: EdgeInsets.only(left: 20.w, right: 20.w),
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: InputDecoration(prefixIcon: Icon(Icons.search),
                   hintText: "Search",
                   hintStyle: GoogleFonts.poppins(
                       fontWeight: FontWeight.w500,

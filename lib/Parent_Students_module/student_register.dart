@@ -1,3 +1,4 @@
+import 'package:edushpere/Parent_Students_module/parents_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +20,23 @@ class _Student_RegisterState extends State<Student_Register> {
   final numctrl = TextEditingController();
   final placectrl = TextEditingController();
   final stdnt_idctrl = TextEditingController();
+  final dateController = TextEditingController();
+
+  DateTime? selectedDate;
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null) {
+      String formattedDate = "${picked.toLocal()}".split(' ')[0]; // Format YYYY-MM-DD
+      dateController.text = formattedDate; // Update the TextField
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +74,7 @@ class _Student_RegisterState extends State<Student_Register> {
                     }
                   },
                   decoration: InputDecoration(
-                      fillColor: Color(0xffD9D9D9),
+                      fillColor: Color(0xffFFF8F8),
                       filled: true,
                       hintText: "First Name",
                       hintStyle: GoogleFonts.poppins(
@@ -78,7 +96,7 @@ class _Student_RegisterState extends State<Student_Register> {
                     }
                   },
                   decoration: InputDecoration(
-                      fillColor: Color(0xffD9D9D9),
+                      fillColor: Color(0xffFFF8F8),
                       filled: true,
                       hintText: "Last Name",
                       hintStyle: GoogleFonts.poppins(
@@ -93,6 +111,25 @@ class _Student_RegisterState extends State<Student_Register> {
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
                 child: TextFormField(
+                  readOnly: true,
+                  decoration: InputDecoration(filled: true,
+                    fillColor: Color(0xffFFF8F8),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.r)),
+                    labelText: 'Select Date',
+                    labelStyle: GoogleFonts.poppins(
+                        fontSize: 15.sp, fontWeight: FontWeight.w600),
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.calendar_today),
+                      onPressed: () => _selectDate(context),
+                    ),
+                  ),
+                  controller: dateController
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
+                child: TextFormField(
                   controller: mailctrl,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -100,7 +137,7 @@ class _Student_RegisterState extends State<Student_Register> {
                     }
                   },
                   decoration: InputDecoration(
-                      fillColor: Color(0xffD9D9D9),
+                      fillColor: Color(0xffFFF8F8),
                       filled: true,
                       hintText: "Email",
                       hintStyle: GoogleFonts.poppins(
@@ -122,9 +159,53 @@ class _Student_RegisterState extends State<Student_Register> {
                     }
                   },
                   decoration: InputDecoration(
-                      fillColor: Color(0xffD9D9D9),
+                      fillColor: Color(0xffFFF8F8),
                       filled: true,
                       hintText: "Student ID",
+                      hintStyle: GoogleFonts.poppins(
+                          fontSize: 15.sp, fontWeight: FontWeight.w600),
+                      border: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 1.w, color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(8.r),
+                      )),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
+                child: TextFormField(
+                  controller: placectrl,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Empty Place";
+                    }
+                  },
+                  decoration: InputDecoration(
+                      fillColor: Color(0xffFFF8F8),
+                      filled: true,
+                      hintText: "Place",
+                      hintStyle: GoogleFonts.poppins(
+                          fontSize: 15.sp, fontWeight: FontWeight.w600),
+                      border: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 1.w, color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(8.r),
+                      )),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
+                child: TextFormField(
+                  controller: numctrl,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Empty Number";
+                    }
+                  },
+                  decoration: InputDecoration(
+                      fillColor: Color(0xffFFF8F8),
+                      filled: true,
+                      hintText: "Phone Number",
                       hintStyle: GoogleFonts.poppins(
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
@@ -138,26 +219,26 @@ class _Student_RegisterState extends State<Student_Register> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 120.h),
+                    padding: EdgeInsets.only(top: 80.h),
                     child: GestureDetector(
                       onTap: () {
-                        // if (form_key.currentState!.validate()) {
-                        //   Navigator.push(context, MaterialPageRoute(
-                        //     builder: (context) {
-                        //       return Teacher_Navigationbar();
-                        //     },
-                        //   ));
-                        // }
+                        if (form_key.currentState!.validate()) {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return Parents_Login();
+                            },
+                          ));
+                        }
                       },
                       child: Container(
                         height: 50.h,
-                        width: 300.w,
+                        width: 200.w,
                         decoration: BoxDecoration(
                             color: Color(0xff23ADB4),
                             borderRadius: BorderRadius.circular(12.r)),
                         child: Center(
                           child: Text(
-                            "Create a new account",
+                            "Submit",
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 20.sp,
@@ -168,36 +249,6 @@ class _Student_RegisterState extends State<Student_Register> {
                     ),
                   )
                 ],
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Already have an account ? ",
-                      style: GoogleFonts.poppins(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff757575)),
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          // Navigator.push(context, MaterialPageRoute(
-                          //   builder: (context) {
-                          //     return Parents_Register();
-                          //   },
-                          // ));
-                        },
-                        child: Text(
-                          "Log in",
-                          style: GoogleFonts.poppins(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff23ADB4)),
-                        ))
-                  ],
-                ),
               ),
             ],
           ),

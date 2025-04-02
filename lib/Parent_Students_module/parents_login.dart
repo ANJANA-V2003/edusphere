@@ -1,4 +1,5 @@
 import 'package:edushpere/Parent_Students_module/parents_navigationbar.dart';
+import 'package:edushpere/Parent_Students_module/student_homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -82,7 +83,7 @@ class _Parents_LoginState extends State<Parents_Login> {
                     }
                   },
                   decoration: InputDecoration(
-                      fillColor: Color(0xffD9D9D9),
+                      fillColor: Color(0xffFFF8F8),
                       filled: true,
                       hintText: "Username",
                       hintStyle: GoogleFonts.poppins(
@@ -104,7 +105,7 @@ class _Parents_LoginState extends State<Parents_Login> {
                     }
                   },
                   decoration: InputDecoration(
-                      fillColor: Color(0xffD9D9D9),
+                      fillColor: Color(0xffFFF8F8),
                       filled: true,
                       hintText: "Password",
                       hintStyle: GoogleFonts.poppins(
@@ -142,7 +143,7 @@ class _Parents_LoginState extends State<Parents_Login> {
                         if (form_key.currentState!.validate()) {
                           Navigator.push(context, MaterialPageRoute(
                             builder: (context) {
-                              return Parents_Navigationbar();
+                              return Student_Homepage();
                             },
                           ));
                         }

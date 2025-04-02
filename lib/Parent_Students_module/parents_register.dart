@@ -1,3 +1,4 @@
+import 'package:edushpere/Parent_Students_module/parents_login.dart';
 import 'package:edushpere/Parent_Students_module/student_register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -85,7 +86,7 @@ class _Parents_RegisterState extends State<Parents_Register> {
                     }
                   },
                   decoration: InputDecoration(
-                      fillColor: Color(0xffD9D9D9),
+                      fillColor: Color(0xffFFF8F8),
                       filled: true,
                       hintText: "Username",
                       hintStyle: GoogleFonts.poppins(
@@ -107,7 +108,7 @@ class _Parents_RegisterState extends State<Parents_Register> {
                     }
                   },
                   decoration: InputDecoration(
-                      fillColor: Color(0xffD9D9D9),
+                      fillColor: Color(0xffFFF8F8),
                       filled: true,
                       hintText: "Password",
                       hintStyle: GoogleFonts.poppins(
@@ -129,7 +130,7 @@ class _Parents_RegisterState extends State<Parents_Register> {
                     }
                   },
                   decoration: InputDecoration(
-                      fillColor: Color(0xffD9D9D9),
+                      fillColor: Color(0xffFFF8F8),
                       filled: true,
                       hintText: "Email",
                       hintStyle: GoogleFonts.poppins(
@@ -151,7 +152,7 @@ class _Parents_RegisterState extends State<Parents_Register> {
                     }
                   },
                   decoration: InputDecoration(
-                      fillColor: Color(0xffD9D9D9),
+                      fillColor: Color(0xffFFF8F8),
                       filled: true,
                       hintText: "ID number",
                       hintStyle: GoogleFonts.poppins(
@@ -214,7 +215,7 @@ class _Parents_RegisterState extends State<Parents_Register> {
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(
                             builder: (context) {
-                              return Parents_Register();
+                              return Parents_Login();
                             },
                           ));
                         },

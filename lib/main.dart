@@ -1,3 +1,4 @@
+import 'package:edushpere/Parent_Students_module/parents_navigationbar.dart';
 import 'package:edushpere/Parent_Students_module/splash_screen_parents.dart';
 import 'package:edushpere/Teachers-module/Teacher_Login.dart';
 import 'package:edushpere/Admin_module/logo_splashscreen_admin.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
                 useMaterial3: true,
               ),
-              home: SplashScreen_Parents(),
+              home: Parents_Navigationbar(),
             ));
   }
 }

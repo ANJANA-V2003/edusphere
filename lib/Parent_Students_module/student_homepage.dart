@@ -1,3 +1,4 @@
+import 'package:edushpere/Parent_Students_module/student_homeworks.dart';
 import 'package:edushpere/Parent_Students_module/student_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -257,11 +258,11 @@ class _Student_HomepageState extends State<Student_Homepage> {
               ),
               GestureDetector(
                 onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(
-                  //   builder: (context) {
-                  //     return Teacher_Homework();
-                  //   },
-                  // ));
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return Student_Homeworks();
+                    },
+                  ));
                 },
                 child: Container(
                   height: 175.h,

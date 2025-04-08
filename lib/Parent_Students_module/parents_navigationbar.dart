@@ -1,6 +1,9 @@
+import 'package:edushpere/Parent_Students_module/calendar_tabbar.dart';
 import 'package:edushpere/Parent_Students_module/student_homepage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Parents_Navigationbar extends StatefulWidget {
@@ -11,22 +14,23 @@ class Parents_Navigationbar extends StatefulWidget {
 }
 
 class _Parents_NavigationbarState extends State<Parents_Navigationbar> {
-
   int _Index = 0;
   static const List<dynamic> _list = [
     Student_Homepage(),
-    // Teacher_Calendar(),
-    // Teacher_Message(),
-    // Teacher_Profile()
+    Student_Homepage(),
+    Student_Homepage(),
+    Calendar_Tabbar(),
   ];
   void _onItemTapped(int index) {
     setState(() {
       _Index = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold( body: _list.elementAt(_Index),
+    return Scaffold(
+      body: _list.elementAt(_Index),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
@@ -36,10 +40,7 @@ class _Parents_NavigationbarState extends State<Parents_Navigationbar> {
               label: "Home",
               backgroundColor: Color(0xffD9D9D9)),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.date_range_outlined,
-
-              ),
+              icon: Icon(CupertinoIcons.question),
               label: "Quiz",
               backgroundColor: Color(0xffD9D9D9)),
           BottomNavigationBarItem(
@@ -50,22 +51,23 @@ class _Parents_NavigationbarState extends State<Parents_Navigationbar> {
               backgroundColor: Color(0xffD9D9D9)),
           BottomNavigationBarItem(
               icon: Icon(
-                CupertinoIcons.person,
-
+                CupertinoIcons.calendar,
               ),
               label: "Calendar",
               backgroundColor: Color(0xffD9D9D9)),
         ],
         type: BottomNavigationBarType.shifting,
         currentIndex: _Index,
-        selectedItemColor:Color(0xff0B99A0),
+        selectedItemColor: Color(0xff0B99A0),
         selectedIconTheme: IconThemeData(color: Color(0xff0B99A0)),
         selectedLabelStyle: GoogleFonts.poppins(
-          fontWeight: FontWeight.bold,),
+          fontWeight: FontWeight.bold,
+        ),
         iconSize: 30,
         onTap: _onItemTapped,
         elevation: 5,
         backgroundColor: Colors.green[600],
-      ),);
+      ),
+    );
   }
 }

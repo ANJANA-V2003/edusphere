@@ -24,10 +24,7 @@ class _Calendar_TabbarState extends State<Calendar_Tabbar> {
           style:
           GoogleFonts.poppins(fontSize: 22.sp, fontWeight: FontWeight.w600),
         ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () => Navigator.pop(context),
-        ),bottom: TabBar(
+        bottom: TabBar(
         labelColor: Colors.white,
         unselectedLabelColor: Colors.black,
         indicatorSize: TabBarIndicatorSize.tab,

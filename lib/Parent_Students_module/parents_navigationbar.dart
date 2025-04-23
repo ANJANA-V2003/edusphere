@@ -1,5 +1,7 @@
+import 'package:edushpere/Parent_Students_module/Students_quiz.dart';
 import 'package:edushpere/Parent_Students_module/calendar_tabbar.dart';
 import 'package:edushpere/Parent_Students_module/student_homepage.dart';
+import 'package:edushpere/Parent_Students_module/student_teacher_chats.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,8 +19,8 @@ class _Parents_NavigationbarState extends State<Parents_Navigationbar> {
   int _Index = 0;
   static const List<dynamic> _list = [
     Student_Homepage(),
-    Student_Homepage(),
-    Student_Homepage(),
+    StudentsQuiz(),
+    Student_TeacherChats(),
     Calendar_Tabbar(),
   ];
   void _onItemTapped(int index) {

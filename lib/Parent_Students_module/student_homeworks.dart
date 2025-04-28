@@ -81,7 +81,7 @@ class _Student_HomeworksState extends State<Student_Homeworks> {
                           Padding(
                             padding: EdgeInsets.only(left: 10.w, top: 20.h),
                             child: SizedBox(
-                              width: 340,
+                              width: 340.w,
                               child: Text(
                                 "The math assignment involves solving 20 to 23 from the school textbook.",
                                 style: GoogleFonts.poppins(

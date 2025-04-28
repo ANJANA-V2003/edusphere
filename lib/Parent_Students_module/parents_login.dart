@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edushpere/Parent_Students_module/parents_navigationbar.dart';
 import 'package:edushpere/Parent_Students_module/student_homepage.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,33 @@ class _Parents_LoginState extends State<Parents_Login> {
 
   final namectrl = TextEditingController();
   final pswdctrl = TextEditingController();
+
+  void parent_login() async {
+    final user = await FirebaseFirestore.instance
+        .collection("Parents_register")
+        .where("Name", isEqualTo: namectrl.text)
+        .where("Password", isEqualTo: pswdctrl.text)
+        .get();
+    if (user.docs.isNotEmpty) {
+      // id = user.docs[0].id;
+      // print("$id");
+      // SharedPreferences user_data =await SharedPreferences.getInstance();
+      // user_data.setString("user_id", id);
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return Parents_Navigationbar();
+        },
+      ));
+    }
+    else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Invalid username or password!'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(backgroundColor: Colors.white,
@@ -139,15 +167,7 @@ class _Parents_LoginState extends State<Parents_Login> {
                   Padding(
                     padding: EdgeInsets.only(top: 120.h),
                     child: GestureDetector(
-                      onTap: () {
-                        if (form_key.currentState!.validate()) {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return Student_Homepage();
-                            },
-                          ));
-                        }
-                      },
+                      onTap: () => parent_login(),
                       child: Container(
                         height: 50.h,
                         width: 150.w,

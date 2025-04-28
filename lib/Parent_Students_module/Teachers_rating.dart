@@ -14,12 +14,13 @@ class _Teachers_RatingState extends State<Teachers_Rating> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black, size: 24.sp),
+          icon: Icon(Icons.arrow_back_ios, color: Colors.black, size: 24.sp),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
@@ -27,96 +28,99 @@ class _Teachers_RatingState extends State<Teachers_Rating> {
           'Rate',
           style: GoogleFonts.poppins(
             color: Colors.black,
-            fontSize: 20.sp,
+            fontSize: 22.sp,
             fontWeight: FontWeight.w500,
           ),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20.w),
-        child: Column(
-          children: [
-            CircleAvatar(
-              radius: 40.r,
-              backgroundImage: AssetImage('assets/images/catherine.png'),
-            ),
-            SizedBox(height: 10.h),
-            Text(
-              'Chatherine',
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.sp,
-              ),
-            ),
-            Text(
-              'Math teacher for grade 5 and grade 6.',
-              style: GoogleFonts.poppins(
-                color: Colors.grey[600],
-                fontSize: 14.sp,
-              ),
-            ),
-            SizedBox(height: 30.h),
-            Text(
-              'Your Rate',
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.sp,
-              ),
-            ),
-            SizedBox(height: 10.h),
-            RatingBar.builder(
-              initialRating: 4,
-              minRating: 1,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              itemSize: 30.sp,
-              itemPadding: EdgeInsets.symmetric(horizontal: 4.w),
-              itemBuilder: (context, _) => Icon(
-                Icons.star,
-                color: Colors.amber,
-              ),
-              onRatingUpdate: (rating) {
-                print(rating);
-              },
-            ),
-            SizedBox(height: 30.h),
-            TextField(
-              maxLines: 4,
-              decoration: InputDecoration(
-                hintText: "Write a review",
-                hintStyle: GoogleFonts.poppins(),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.r),
+      body: SingleChildScrollView(
+        child: ConstrainedBox(constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+          child: Padding(
+            padding:  EdgeInsets.all(20.w),
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 40.r,
+                  backgroundImage: AssetImage('assets/images/catherine.png'),
                 ),
-              ),
-              style: GoogleFonts.poppins(),
-            ),
-            Spacer(),
-            GestureDetector(
-              onTap: () {
-                print("Submit tapped");
-              },
-              child: Container(
-                width: 320.w,
-                height: 60.h,
-                decoration: BoxDecoration(
-                  color: Color(0xff0B99A0),
-                  borderRadius: BorderRadius.circular(20.r),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  'Submit',
+                SizedBox(height: 10.h),
+                Text(
+                  'Chatherine',
                   style: GoogleFonts.poppins(
-                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                     fontSize: 20.sp,
-                    fontWeight: FontWeight.w600,
                   ),
                 ),
-              ),
+                Text(
+                  'Math teacher for grade 5 and grade 6.',
+                  style: GoogleFonts.poppins(
+                    color: Colors.grey[600],
+                    fontSize: 14.sp,
+                  ),
+                ),
+                SizedBox(height: 30.h),
+                Text(
+                  'Your Rate',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.sp,
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                RatingBar.builder(
+                  initialRating: 4,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemSize: 30.sp,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 4.w),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (rating) {
+                    print(rating);
+                  },
+                ),
+                SizedBox(height: 30.h),
+                TextField(
+                  maxLines: 4,
+                  decoration: InputDecoration(
+                    hintText: "Write a review",
+                    hintStyle: GoogleFonts.poppins(),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                  ),
+                  style: GoogleFonts.poppins(),
+                ),
+                SizedBox(height: 250.h,),
+                GestureDetector(
+                  onTap: () { Navigator.pop(context);
+                  },
+                  child: Container(
+                    width: 320.w,
+                    height: 60.h,
+                    decoration: BoxDecoration(
+                      color: Color(0xff0B99A0),
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Submit',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20.h),
+              ],
             ),
-            SizedBox(height: 20.h),
-          ],
+          ),
         ),
       ),
     );

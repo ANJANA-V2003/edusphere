@@ -59,7 +59,7 @@ class _Student_NotificationviewState extends State<Student_Notificationview> {
                           Padding(
                             padding: EdgeInsets.only(left: 10.w, top: 10.h),
                             child: SizedBox(
-                              width: 340,
+                              width: 340.w,
                               child: Text(
                                 "You have an assignment due tomorrow. Make sure to complete it.",
                                 style: GoogleFonts.poppins(

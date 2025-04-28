@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edushpere/Parent_Students_module/parents_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +17,12 @@ class _Student_RegisterState extends State<Student_Register> {
 
   final fnamectrl = TextEditingController();
   final lnamectrl = TextEditingController();
-  final mailctrl = TextEditingController();
+  final agectrl = TextEditingController();
   final numctrl = TextEditingController();
   final placectrl = TextEditingController();
   final stdnt_idctrl = TextEditingController();
   final dateController = TextEditingController();
+  final gardiannamectrl = TextEditingController();
 
   DateTime? selectedDate;
 
@@ -35,6 +37,32 @@ class _Student_RegisterState extends State<Student_Register> {
       String formattedDate = "${picked.toLocal()}".split(' ')[0]; // Format YYYY-MM-DD
       dateController.text = formattedDate; // Update the TextField
     }
+  }
+
+  Future<void> student_data() async {
+    if (form_key.currentState!.validate()) {
+      FirebaseFirestore.instance.collection("Students_register").add({
+        "First_Name": fnamectrl.text,
+        "Last_Name": lnamectrl.text,
+        "Gaurdian_Name": gardiannamectrl.text,
+        "Date_of_Birth": dateController.text,
+        "Phone": numctrl.text,
+        "Age": agectrl.text,
+        "ID": stdnt_idctrl.text,
+        "Place": placectrl.text,
+        "Profile_path":
+        "https://th.bing.com/th/id/OIP.A1JjNu8jIRxaTJHbD_EtFwHaIJ?rs=1&pid=ImgDetMain"
+      });
+    }
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) {
+        return Parents_Login();
+      },
+    ));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Account Created Successfully'),
+    ));
+
   }
 
   @override
@@ -111,6 +139,28 @@ class _Student_RegisterState extends State<Student_Register> {
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
                 child: TextFormField(
+                  controller: gardiannamectrl,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Empty guardian name";
+                    }
+                  },
+                  decoration: InputDecoration(
+                      fillColor: Color(0xffFFF8F8),
+                      filled: true,
+                      hintText: "Gaurdian Name",
+                      hintStyle: GoogleFonts.poppins(
+                          fontSize: 15.sp, fontWeight: FontWeight.w600),
+                      border: OutlineInputBorder(
+                        borderSide:
+                        BorderSide(width: 1.w, color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(8.r),
+                      )),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
+                child: TextFormField(
                   readOnly: true,
                   decoration: InputDecoration(filled: true,
                     fillColor: Color(0xffFFF8F8),
@@ -130,16 +180,16 @@ class _Student_RegisterState extends State<Student_Register> {
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
                 child: TextFormField(
-                  controller: mailctrl,
+                  controller: agectrl,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return "Empty email";
+                      return "Empty age";
                     }
                   },
                   decoration: InputDecoration(
                       fillColor: Color(0xffFFF8F8),
                       filled: true,
-                      hintText: "Email",
+                      hintText: "Age",
                       hintStyle: GoogleFonts.poppins(
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
@@ -221,15 +271,7 @@ class _Student_RegisterState extends State<Student_Register> {
                   Padding(
                     padding: EdgeInsets.only(top: 80.h),
                     child: GestureDetector(
-                      onTap: () {
-                        if (form_key.currentState!.validate()) {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return Parents_Login();
-                            },
-                          ));
-                        }
-                      },
+                      onTap:() => student_data(),
                       child: Container(
                         height: 50.h,
                         width: 200.w,

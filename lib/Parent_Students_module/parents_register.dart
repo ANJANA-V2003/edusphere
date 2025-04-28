@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edushpere/Parent_Students_module/parents_login.dart';
 import 'package:edushpere/Parent_Students_module/student_register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,6 +20,31 @@ class _Parents_RegisterState extends State<Parents_Register> {
   final pswdctrl = TextEditingController();
   final mailctrl = TextEditingController();
   final idctrl = TextEditingController();
+  final phnctrl = TextEditingController();
+
+  Future<void> parents_data() async {
+    if (form_key.currentState!.validate()) {
+      FirebaseFirestore.instance.collection("Parents_register").add({
+        "Name": namectrl.text,
+        "Phone": phnctrl.text,
+        "Email": mailctrl.text,
+        "Password": pswdctrl.text,
+        "ID": idctrl.text,
+        "Profile_path":
+            "https://th.bing.com/th/id/OIP.A1JjNu8jIRxaTJHbD_EtFwHaIJ?rs=1&pid=ImgDetMain"
+      });
+    }
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) {
+        return Student_Register();
+      },
+    ));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Account Created Successfully'),
+    ));
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,10 +172,32 @@ class _Parents_RegisterState extends State<Parents_Register> {
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
                 child: TextFormField(
+                  controller: phnctrl,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Empty phone number";
+                    }
+                  },
+                  decoration: InputDecoration(
+                      fillColor: Color(0xffFFF8F8),
+                      filled: true,
+                      hintText: "Phone number",
+                      hintStyle: GoogleFonts.poppins(
+                          fontSize: 15.sp, fontWeight: FontWeight.w600),
+                      border: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 1.w, color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(8.r),
+                      )),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
+                child: TextFormField(
                   controller: idctrl,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return "Empty Id";
+                      return "Empty ID number";
                     }
                   },
                   decoration: InputDecoration(
@@ -170,15 +219,7 @@ class _Parents_RegisterState extends State<Parents_Register> {
                   Padding(
                     padding: EdgeInsets.only(top: 120.h),
                     child: GestureDetector(
-                      onTap: () {
-                        if (form_key.currentState!.validate()) {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return Student_Register();
-                            },
-                          ));
-                        }
-                      },
+                      onTap: () => parents_data(),
                       child: Container(
                         height: 50.h,
                         width: 300.w,

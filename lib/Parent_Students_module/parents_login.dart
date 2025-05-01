@@ -4,6 +4,7 @@ import 'package:edushpere/Parent_Students_module/student_homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Parents_Login extends StatefulWidget {
   const Parents_Login({super.key});
@@ -15,20 +16,21 @@ class Parents_Login extends StatefulWidget {
 class _Parents_LoginState extends State<Parents_Login> {
   final form_key = GlobalKey<FormState>();
 
-  final namectrl = TextEditingController();
-  final pswdctrl = TextEditingController();
+  final fnamectrl = TextEditingController();
+  final idctrl = TextEditingController();
+  String id = "";
 
-  void parent_login() async {
+  void student_login() async {
     final user = await FirebaseFirestore.instance
-        .collection("Parents_register")
-        .where("Name", isEqualTo: namectrl.text)
-        .where("Password", isEqualTo: pswdctrl.text)
+        .collection("Students_register")
+        .where("First_Name", isEqualTo: fnamectrl.text)
+        .where("ID", isEqualTo: idctrl.text)
         .get();
     if (user.docs.isNotEmpty) {
-      // id = user.docs[0].id;
-      // print("$id");
-      // SharedPreferences user_data =await SharedPreferences.getInstance();
-      // user_data.setString("user_id", id);
+      id = user.docs[0].id;
+      print("$id");
+      SharedPreferences user_data =await SharedPreferences.getInstance();
+      user_data.setString("user_id", id);
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
           return Parents_Navigationbar();
@@ -38,7 +40,7 @@ class _Parents_LoginState extends State<Parents_Login> {
     else{
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Invalid username or password!'),
+          content: Text('Invalid username or ID!'),
           backgroundColor: Colors.red,
         ),
       );
@@ -104,7 +106,7 @@ class _Parents_LoginState extends State<Parents_Login> {
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 200.h),
                 child: TextFormField(
-                  controller: namectrl,
+                  controller: fnamectrl,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Empty username";
@@ -126,16 +128,16 @@ class _Parents_LoginState extends State<Parents_Login> {
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 45.h),
                 child: TextFormField(
-                  controller: pswdctrl,
+                  controller: idctrl,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return "Empty password";
+                      return "Empty Id";
                     }
                   },
                   decoration: InputDecoration(
                       fillColor: Color(0xffFFF8F8),
                       filled: true,
-                      hintText: "Password",
+                      hintText: "ID",
                       hintStyle: GoogleFonts.poppins(
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
@@ -167,7 +169,7 @@ class _Parents_LoginState extends State<Parents_Login> {
                   Padding(
                     padding: EdgeInsets.only(top: 120.h),
                     child: GestureDetector(
-                      onTap: () => parent_login(),
+                      onTap: () => student_login(),
                       child: Container(
                         height: 50.h,
                         width: 150.w,

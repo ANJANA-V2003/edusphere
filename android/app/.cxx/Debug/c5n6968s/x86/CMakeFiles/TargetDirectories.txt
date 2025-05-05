@@ -1,0 +1,2 @@
+C:/Users/Anjana/StudioProjects/edusphere/android/app/.cxx/Debug/c5n6968s/x86/CMakeFiles/edit_cache.dir
+C:/Users/Anjana/StudioProjects/edusphere/android/app/.cxx/Debug/c5n6968s/x86/CMakeFiles/rebuild_cache.dir

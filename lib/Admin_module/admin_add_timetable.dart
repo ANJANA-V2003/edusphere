@@ -42,13 +42,13 @@ class _Admin_AddTimetableState extends State<Admin_AddTimetable> {
             ],
           ),
           SizedBox(
-            height: 30.h,
+            height: 20.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                height: 585.h,
+                height: 600.h,
                 width: 344.w,
                 decoration: BoxDecoration(
                     color: Color(0xffD9D9D9),

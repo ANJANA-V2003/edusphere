@@ -218,17 +218,17 @@ class _Student_HomepageState extends State<Student_Homepage> {
                                         ),
                                       ],
                                     ),
-                                    // Row(
-                                    //   children: [
-                                    //     Text(
-                                    //       "Class 1",
-                                    //       style: GoogleFonts.poppins(
-                                    //           fontSize: 20.sp,
-                                    //           fontWeight: FontWeight.w500,
-                                    //           color: Colors.white),
-                                    //     ),
-                                    //   ],
-                                    // )
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Class : ${student_detail ["Class"]?? "No data found"}",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 20.sp,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    )
                                   ],
                                 ),
                               )

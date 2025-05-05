@@ -19,7 +19,7 @@ class _Parents_RegisterState extends State<Parents_Register> {
   final namectrl = TextEditingController();
   final pswdctrl = TextEditingController();
   final mailctrl = TextEditingController();
-  final idctrl = TextEditingController();
+  // final idctrl = TextEditingController();
   final phnctrl = TextEditingController();
 
   Future<void> parents_data() async {
@@ -29,7 +29,7 @@ class _Parents_RegisterState extends State<Parents_Register> {
         "Phone": phnctrl.text,
         "Email": mailctrl.text,
         "Password": pswdctrl.text,
-        "ID": idctrl.text,
+        // "ID": idctrl.text,
         "Profile_path":
             "https://th.bing.com/th/id/OIP.A1JjNu8jIRxaTJHbD_EtFwHaIJ?rs=1&pid=ImgDetMain"
       });
@@ -191,28 +191,28 @@ class _Parents_RegisterState extends State<Parents_Register> {
                       )),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
-                child: TextFormField(
-                  controller: idctrl,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Empty ID number";
-                    }
-                  },
-                  decoration: InputDecoration(
-                      fillColor: Color(0xffFFF8F8),
-                      filled: true,
-                      hintText: "ID number",
-                      hintStyle: GoogleFonts.poppins(
-                          fontSize: 15.sp, fontWeight: FontWeight.w600),
-                      border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(width: 1.w, color: Colors.grey.shade400),
-                        borderRadius: BorderRadius.circular(8.r),
-                      )),
-                ),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
+              //   child: TextFormField(
+              //     controller: idctrl,
+              //     validator: (value) {
+              //       if (value!.isEmpty) {
+              //         return "Empty ID number";
+              //       }
+              //     },
+              //     decoration: InputDecoration(
+              //         fillColor: Color(0xffFFF8F8),
+              //         filled: true,
+              //         hintText: "ID number",
+              //         hintStyle: GoogleFonts.poppins(
+              //             fontSize: 15.sp, fontWeight: FontWeight.w600),
+              //         border: OutlineInputBorder(
+              //           borderSide:
+              //               BorderSide(width: 1.w, color: Colors.grey.shade400),
+              //           borderRadius: BorderRadius.circular(8.r),
+              //         )),
+              //   ),
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

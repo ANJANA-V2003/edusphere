@@ -23,6 +23,7 @@ class _Student_RegisterState extends State<Student_Register> {
   final stdnt_idctrl = TextEditingController();
   final dateController = TextEditingController();
   final gardiannamectrl = TextEditingController();
+  final classctrl = TextEditingController();
 
   DateTime? selectedDate;
 
@@ -50,6 +51,7 @@ class _Student_RegisterState extends State<Student_Register> {
         "Age": agectrl.text,
         "ID": stdnt_idctrl.text,
         "Place": placectrl.text,
+        "Class":classctrl.text,
         "Profile_path":
         "https://th.bing.com/th/id/OIP.A1JjNu8jIRxaTJHbD_EtFwHaIJ?rs=1&pid=ImgDetMain"
       });
@@ -195,6 +197,27 @@ class _Student_RegisterState extends State<Student_Register> {
                       border: OutlineInputBorder(
                         borderSide:
                             BorderSide(width: 1.w, color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(8.r),
+                      )),
+                ),
+              ), Padding(
+                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
+                child: TextFormField(
+                  controller: classctrl,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Empty class";
+                    }
+                  },
+                  decoration: InputDecoration(
+                      fillColor: Color(0xffFFF8F8),
+                      filled: true,
+                      hintText: "Class",
+                      hintStyle: GoogleFonts.poppins(
+                          fontSize: 15.sp, fontWeight: FontWeight.w600),
+                      border: OutlineInputBorder(
+                        borderSide:
+                        BorderSide(width: 1.w, color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(8.r),
                       )),
                 ),

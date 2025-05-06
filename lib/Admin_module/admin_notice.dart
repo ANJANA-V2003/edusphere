@@ -14,35 +14,41 @@ class Admin_Notice extends StatefulWidget {
 }
 
 class _Admin_NoticeState extends State<Admin_Notice> {
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getdata();
-  }
-
-  Future<void> getdata() async {
-    SharedPreferences notice_data = await SharedPreferences.getInstance();
-    setState(() {
-      Notice_id = notice_data.getString("notice_id");
-      print("$Notice_id//////////////////////////////////////");
-    });
-  }
-
-  var Notice_id;
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   getdata();
+  // }
+  //
+  // Future<void> getdata() async {
+  //   SharedPreferences notice_data = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     Notice_id = notice_data.getString("notice_id");
+  //     print("$Notice_id//////////////////////////////////////");
+  //   });
+  // }
+  //
+  // var Notice_id;
   final form_key = GlobalKey<FormState>();
+  late String notice_id = "";
 
   final title_controller = TextEditingController();
   final details_controller = TextEditingController();
   final date_controller = TextEditingController();
 
-  Future<void> notice() async {
-    FirebaseFirestore.instance.collection("Admin_Notices").add({
+  Future<String> notice() async {
+    DocumentReference docref =
+        await FirebaseFirestore.instance.collection("Admin_Notices").add({
       "Title": title_controller.text,
       "Details": details_controller.text,
       "Date": date_controller.text,
-      "Notice_id":Notice_id
     });
+    String notice_id = docref.id;
+    print("$notice_id/////////////");
+    await docref.update({"Notice_id": notice_id});
+
     Navigator.of(context).pop();
+    return notice_id;
   }
 
   void _showAlertDialog(BuildContext context) {
@@ -184,6 +190,12 @@ class _Admin_NoticeState extends State<Admin_Notice> {
       },
     );
   }
+  // late String notice_id;
+
+  void addNoticeAndLoad() async {
+    notice_id = await notice(); // Now you have access to it
+    setState(() {}); // Rebuild widget to use the ID in StreamBuilder
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -203,12 +215,12 @@ class _Admin_NoticeState extends State<Admin_Notice> {
       ),
       body: StreamBuilder(
         stream:
-            FirebaseFirestore.instance.collection("Admin_Notices").where("Notice_id", isEqualTo: Notice_id).snapshots(),
+            FirebaseFirestore.instance.collection("Admin_Notices").snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
                 child:
-                CircularProgressIndicator()); //loading action , shows that data is
+                    CircularProgressIndicator()); //loading action , shows that data is
           }
 
           if (!snapshot.hasData) {
@@ -222,57 +234,151 @@ class _Admin_NoticeState extends State<Admin_Notice> {
             itemCount: notices.length,
             itemBuilder: (context, index) => Padding(
               padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h),
-              child: GestureDetector(
-                onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(
-                  //   builder: (context) {
-                  //     return Admin_Student_details();
-                  //   },
-                  // ));
-                },
-                child: Container(
-                  width: 380.w,
-                  height: 70.h,
-                  padding: EdgeInsets.all(10.w),
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 1.w, color: Colors.grey.shade400),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12.r),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 40.h,
-                        width: 60.w,
-                        decoration: BoxDecoration(
-                            color: Colors.grey,
-                            image: DecorationImage(
-                                image: AssetImage("assets/images/event.png"),
-                                fit: BoxFit.cover)),
-                      ),
-                      SizedBox(width: 40.w),
-                      Expanded(
-                          child: Text(notices[index]["Title"],
-                              style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500))),
-                      Padding(
+              child: Container(
+                width: 380.w,
+                height: 70.h,
+                padding: EdgeInsets.all(10.w),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 1.w, color: Colors.grey.shade400),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 40.h,
+                      width: 60.w,
+                      decoration: BoxDecoration(
+                          color: Colors.grey,
+                          image: DecorationImage(
+                              image: AssetImage("assets/images/event.png"),
+                              fit: BoxFit.cover)),
+                    ),
+                    SizedBox(width: 40.w),
+                    Expanded(
+                        child: Text(notices[index]["Title"],
+                            style: TextStyle(
+                                fontSize: 16.sp, fontWeight: FontWeight.w500))),
+                    GestureDetector(
+                      onTap: () {
+                        // Get the current notice data from Firestore
+                        var noticeData = notices[index];
+
+                        // Show a dialog with the current data pre-filled
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            TextEditingController titleController =
+                                TextEditingController(
+                                    text: noticeData["Title"]);
+                            TextEditingController detailsController =
+                                TextEditingController(
+                                    text: noticeData["Details"]);
+                            TextEditingController dateController =
+                                TextEditingController(text: noticeData["Date"]);
+
+                            return AlertDialog(
+                              title: Text("Update Notice"),
+                              content: SizedBox(
+                                height:
+                                    250.0, // Adjust the height based on your form
+                                child: Column(
+                                  children: [
+                                    TextFormField(
+                                      controller: titleController,
+                                      decoration: InputDecoration(
+                                        hintText: "Enter title",
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                    TextFormField(
+                                      controller: detailsController,
+                                      decoration: InputDecoration(
+                                        hintText: "Enter details",
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                    TextFormField(
+                                      controller: dateController,
+                                      decoration: InputDecoration(
+                                        hintText: "Enter date (dd/mm/yyyy)",
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    // Get the new values from the controllers
+                                    String updatedTitle = titleController.text;
+                                    String updatedDetails =
+                                        detailsController.text;
+                                    String updatedDate = dateController.text;
+
+                                    // Update the Firestore document with new data
+                                    FirebaseFirestore.instance
+                                        .collection("Admin_Notices")
+                                        .doc(noticeData[
+                                            "Notice_id"]) // Use the unique Notice_id to reference the document
+                                        .update({
+                                      "Title": updatedTitle,
+                                      "Details": updatedDetails,
+                                      "Date": updatedDate,
+                                    }).then((_) {
+                                      // Optionally, show a success message
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: Text(
+                                            "Notice updated successfully!"),
+                                        duration: Duration(seconds: 2),
+                                      ));
+                                    }).catchError((error) {
+                                      // Handle any errors
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: Text(
+                                            "Error updating notice: $error"),
+                                        duration: Duration(seconds: 2),
+                                      ));
+                                    });
+
+                                    Navigator.of(context)
+                                        .pop(); // Close the dialog after updating
+                                  },
+                                  child: Text("Update"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: Padding(
                         padding: EdgeInsets.only(right: 15.w),
-                        child: IconButton(onPressed: () {
-                          FirebaseFirestore.instance
-                              .collection("Admin_Notices")
-                              .doc(notices[index]
-                              .id)
-                              .delete();
-                        },
-                          icon: SvgPicture.asset(
-                            "assets/icons/edit_icon.svg",
-                            height: 19.h,
-                            width: 19.w,
-                          ),
+                        child: SvgPicture.asset(
+                          "assets/icons/edit_icon.svg",
+                          height: 19.h,
+                          width: 19.w,
                         ),
                       ),
-                      Padding(
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        FirebaseFirestore.instance
+                            .collection("Admin_Notices")
+                            .where("Notice_id",
+                                isEqualTo: notices[index]["Notice_id"])
+                            .get()
+                            .then((querySnapshot) {
+                          for (var doc in querySnapshot.docs) {
+                            doc.reference.delete();
+                          }
+                        });
+                      },
+                      child: Padding(
                         padding: EdgeInsets.only(right: 5.w),
                         child: SvgPicture.asset(
                           "assets/icons/delete_icon.svg",
@@ -280,8 +386,8 @@ class _Admin_NoticeState extends State<Admin_Notice> {
                           width: 19.w,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edushpere/Teachers-module/Teacher_Navigationbar.dart';
 import 'package:edushpere/Teachers-module/Teacher_home.dart';
+import 'package:edushpere/Teachers-module/Teachers_register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TeacherLogin extends StatefulWidget {
   const TeacherLogin({super.key});
@@ -15,8 +18,36 @@ class TeacherLogin extends StatefulWidget {
 class _TeacherLoginState extends State<TeacherLogin> {
   final form_key = GlobalKey<FormState>();
 
-  final namectrl = TextEditingController();
-  final pswdctrl = TextEditingController();
+  final name_ctrl = TextEditingController();
+  final pswd_ctrl = TextEditingController();
+  String id = "";
+
+  void teacher_login() async {
+    final user = await FirebaseFirestore.instance
+        .collection("Teachers_register")
+        .where("Name", isEqualTo: name_ctrl.text)
+        .where("Password", isEqualTo: pswd_ctrl.text)
+        .get();
+    if (user.docs.isNotEmpty) {
+      id = user.docs[0].id;
+      print("$id");
+      SharedPreferences teacher_data =await SharedPreferences.getInstance();
+     teacher_data.setString("user_id", id);
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return Teacher_Navigationbar();
+        },
+      ));
+    }
+    else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Invalid username or ID!'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +77,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
                                   left: 30.w,
                                 ),
                                 child: Text(
-                                  "Welcome Back",
+                                  "EduSphere",
                                   style: GoogleFonts.poppins(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w700,
@@ -63,7 +94,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
                                   "Login to continue",
                                   style: GoogleFonts.poppins(
                                       color: Colors.white,
-                                      fontWeight: FontWeight.w700,
+                                      fontWeight: FontWeight.w600,
                                       fontSize: 25.sp),
                                 ),
                               )
@@ -78,7 +109,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 200.h),
                 child: TextFormField(
-                  controller: namectrl,
+                  controller: name_ctrl,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Empty username";
@@ -100,7 +131,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 45.h),
                 child: TextFormField(
-                  controller: pswdctrl,
+                  controller: pswd_ctrl,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Empty password";
@@ -139,17 +170,9 @@ class _TeacherLoginState extends State<TeacherLogin> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 120.h),
+                    padding: EdgeInsets.only(top: 100.h),
                     child: GestureDetector(
-                      onTap: () {
-                        if (form_key.currentState!.validate()) {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return Teacher_Navigationbar();
-                            },
-                          ));
-                        }
-                      },
+                      onTap: () => teacher_login(),
                       child: Container(
                         height: 50.h,
                         width: 150.w,
@@ -169,7 +192,32 @@ class _TeacherLoginState extends State<TeacherLogin> {
                     ),
                   )
                 ],
-              )
+              ),
+              SizedBox(height: 10.h,),
+              Row( mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Do you have account ? ",
+                    style: GoogleFonts.poppins(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff757575)),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return Teachers_Register();
+                          },
+                        ));
+                      },
+                      child: Text(
+                        "Sign up",
+                        style: GoogleFonts.poppins(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xff23ADB4)),
+                      ))],)
             ],
           ),
         ),

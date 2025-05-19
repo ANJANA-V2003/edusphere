@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edushpere/Teachers-module/Teacher_add_homework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Teacher_Homework extends StatefulWidget {
   const Teacher_Homework({super.key});
@@ -11,6 +13,20 @@ class Teacher_Homework extends StatefulWidget {
 }
 
 class _Teacher_HomeworkState extends State<Teacher_Homework> {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getdatas();
+  }
+
+  Future<void> getdatas() async {
+    SharedPreferences teacher_data = await SharedPreferences.getInstance();
+    setState(() {
+      User_id = teacher_data.getString("user_id");
+    });
+  }
+
+  var User_id;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,82 +42,108 @@ class _Teacher_HomeworkState extends State<Teacher_Homework> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: 2,
-              itemBuilder: (context, index) => Padding(
-                padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h),
-                child: Container(
-                  width: 380.w,
-                  height: 150.h,
-                  padding: EdgeInsets.all(10.w),
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 1.w, color: Colors.grey.shade400),
-                    color: Color(0xffD9D9D9),
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 10.w, top: 5.h),
-                            child: Text("Maths",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.w600)),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 10.w, top: 5.h),
-                            child: Text("Due : 17-03-2025",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xff0B99A0))),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 10.w),
-                            child: Text(
-                              "Ms Catherine",
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 15.sp,
-                                  color: Color(0xff706969)),
+      body: StreamBuilder(stream: FirebaseFirestore.instance
+        .collection("Teacher_Homeworks")
+        .where("Teacher_id", isEqualTo: User_id)
+        .snapshots(),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Center(
+            child:
+            CircularProgressIndicator()); //loading action , shows that data is
+      }
+
+      if (!snapshot.hasData) {
+        // to check if there is data if not it returns the text
+        return Center(child: Text("No data found"));
+      }
+
+      var homework = snapshot.data!.docs;
+      return
+        Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: homework.length,
+                itemBuilder: (context, index) =>
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: 15.w, right: 15.w, top: 15.h),
+                      child: Container(
+                        width: 380.w,
+                        height: 150.h,
+                        padding: EdgeInsets.all(10.w),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 1.w, color: Colors.grey.shade400),
+                          color: Color(0xffD9D9D9),
+                          borderRadius: BorderRadius.circular(10.r),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 10.w, top: 5.h),
+                                  child: Text(homework[index]['Subject'],
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.w600)),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      right: 10.w, top: 5.h),
+                                  child: Text("Due : ${homework[index]['date']}",
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xff0B99A0))),
+                                ),
+                              ],
                             ),
-                          )
-                        ],
+                            // Row(
+                            //   children: [
+                            //     Padding(
+                            //       padding: EdgeInsets.only(left: 10.w),
+                            //       child: Text(
+                            //         "Ms Catherine",
+                            //         style: GoogleFonts.poppins(
+                            //             fontWeight: FontWeight.w500,
+                            //             fontSize: 15.sp,
+                            //             color: Color(0xff706969)),
+                            //       ),
+                            //     )
+                            //   ],
+                            // ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 10.w, top: 20.h),
+                                  child: SizedBox(
+                                    width: 340,
+                                    child: Text(
+                                      homework[index]['Topic'],
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15.sp,
+                                          color: Color(0xff706969)),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 10.w, top: 20.h),
-                            child: SizedBox(
-                              width: 340,
-                              child: Text(
-                                "The math assignment involves solving 20 to 23 from the school textbook.",
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15.sp,
-                                    color: Color(0xff706969)),
-                              ),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+                    ),
               ),
             ),
-          ),
-        ],
+          ],
+        );
+    }
       ),
       floatingActionButton: FloatingActionButton(
         shape: CircleBorder(),

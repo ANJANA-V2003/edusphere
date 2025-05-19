@@ -209,6 +209,7 @@ class _Teacher_HomeState extends State<Teacher_Home> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [SvgPicture.asset("assets/icons/quiz.svg")],
                             ),
+                            SizedBox(height: 10.h,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -221,18 +222,18 @@ class _Teacher_HomeState extends State<Teacher_Home> {
                                 )
                               ],
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "MCQ or written",
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14.sp,
-                                      color: Colors.grey.shade500),
-                                )
-                              ],
-                            )
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     Text(
+                            //       "MCQ or written",
+                            //       style: GoogleFonts.poppins(
+                            //           fontWeight: FontWeight.w600,
+                            //           fontSize: 14.sp,
+                            //           color: Colors.grey.shade500),
+                            //     )
+                            //   ],
+                            // )
                           ],
                         ),
                       ),
@@ -258,11 +259,12 @@ class _Teacher_HomeState extends State<Teacher_Home> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [SvgPicture.asset("assets/icons/books.svg")],
                             ),
+                            SizedBox(height: 10.h,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "10 Total",
+                                  "Homeworks",
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16.sp,
@@ -270,18 +272,18 @@ class _Teacher_HomeState extends State<Teacher_Home> {
                                 )
                               ],
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Homeworks pushed",
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14.sp,
-                                      color: Colors.grey.shade500),
-                                )
-                              ],
-                            )
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     Text(
+                            //       "Homeworks pushed",
+                            //       style: GoogleFonts.poppins(
+                            //           fontWeight: FontWeight.w600,
+                            //           fontSize: 14.sp,
+                            //           color: Colors.grey.shade500),
+                            //     )
+                            //   ],
+                            // )
                           ],
                         ),
                       ),

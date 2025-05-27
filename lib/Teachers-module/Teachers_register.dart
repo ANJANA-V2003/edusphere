@@ -35,6 +35,7 @@ class _Teachers_RegisterState extends State<Teachers_Register> {
         "Subject": sub_ctrl.text,
         "Place": place_ctrl.text,
         "Password":pswd_ctrl.text,
+        "Status": 0,
         "Profile_path":
         "https://th.bing.com/th/id/OIP.A1JjNu8jIRxaTJHbD_EtFwHaIJ?rs=1&pid=ImgDetMain"
       });

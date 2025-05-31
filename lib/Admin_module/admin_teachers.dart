@@ -12,6 +12,7 @@ class Admin_Teachers extends StatefulWidget {
   State<Admin_Teachers> createState() => _Admin_TeachersState();
 }
 
+//sorting left
 class _Admin_TeachersState extends State<Admin_Teachers> {
   int selectedCategory = 0;
 
@@ -48,10 +49,11 @@ class _Admin_TeachersState extends State<Admin_Teachers> {
               itemCount: categories.length,
               itemBuilder: (context, index) => Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.h),
-                child: ChoiceChip(checkmarkColor: Colors.black,
+                child: ChoiceChip(
+                  checkmarkColor: Colors.black,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.w),
-                      ),
+                    borderRadius: BorderRadius.circular(20.w),
+                  ),
                   label: Text(
                     categories[index],
                     style: GoogleFonts.poppins(fontWeight: FontWeight.w700),
@@ -64,63 +66,77 @@ class _Admin_TeachersState extends State<Admin_Teachers> {
               ),
             ),
           ),
-          StreamBuilder(stream: FirebaseFirestore.instance
-              .collection("Teachers_register")
-              .snapshots(), builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                  child:
-                  CircularProgressIndicator()); //loading action , shows that data is
-            }
+          StreamBuilder(
+            // stream: FirebaseFirestore.instance
+            //     .collection("Teachers_register")
+            //     .snapshots(),
+               stream:selectedCategory == 0
+                  ? FirebaseFirestore.instance
+                  .collection("Teachers_register")
+                  .snapshots()
+                  : FirebaseFirestore.instance
+                  .collection("Teachers_register")
+                  .where("Subject", isEqualTo: categories[selectedCategory])
+                  .snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                    child:
+                        CircularProgressIndicator()); //loading action , shows that data is
+              }
 
-            if (!snapshot.hasData) {
-              // to check if there is data if not it returns the text
-              return Center(child: Text("No data found"));
-            }
+              if (!snapshot.hasData) {
+                // to check if there is data if not it returns the text
+                return Center(child: Text("No data found"));
+              }
 
-            var Teachers_datas = snapshot.data!.docs;
+              var Teachers_datas = snapshot.data!.docs;
 
-            return Expanded(
-              child: ListView.builder(
-                itemCount: Teachers_datas.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h),
-                  child: GestureDetector(onTap: () {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) {
-                        return Admin_Teacher_details(id: Teachers_datas[index].id);
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: Teachers_datas.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding:
+                        EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return Admin_Teacher_details(
+                                id: Teachers_datas[index].id);
+                          },
+                        ));
                       },
-                    ));
-                  },
-                    child: Container(
-                      width: 380.w,
-                      height: 70.h,
-                      padding: EdgeInsets.all(10.w),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1.w, color: Colors.grey.shade400),
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                              backgroundImage: AssetImage("assets/images/catherine.png")),
-                          SizedBox(width: 10.w),
-                          Expanded(
-                              child: Text(Teachers_datas[index]["Name"],
-                                  style: TextStyle(
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w500))),
-                          Icon(Icons.more_vert),
-                        ],
+                      child: Container(
+                        width: 380.w,
+                        height: 70.h,
+                        padding: EdgeInsets.all(10.w),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 1.w, color: Colors.grey.shade400),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                                backgroundImage:NetworkImage(Teachers_datas[index]["Profile_path"]),
+                                    ),
+                            SizedBox(width: 10.w),
+                            Expanded(
+                                child: Text(Teachers_datas[index]["Name"],
+                                    style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500))),
+                            Icon(Icons.more_vert),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            );
-              },
-
+              );
+            },
           )
         ],
       ),

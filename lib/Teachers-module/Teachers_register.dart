@@ -14,7 +14,6 @@ class Teachers_Register extends StatefulWidget {
 }
 
 class _Teachers_RegisterState extends State<Teachers_Register> {
-
   final form_key = GlobalKey<FormState>();
 
   final name_ctrl = TextEditingController();
@@ -34,10 +33,10 @@ class _Teachers_RegisterState extends State<Teachers_Register> {
         "Age": age_ctrl.text,
         "Subject": sub_ctrl.text,
         "Place": place_ctrl.text,
-        "Password":pswd_ctrl.text,
+        "Password": pswd_ctrl.text,
         "Status": 0,
         "Profile_path":
-        "https://th.bing.com/th/id/OIP.A1JjNu8jIRxaTJHbD_EtFwHaIJ?rs=1&pid=ImgDetMain"
+            "https://static.vecteezy.com/system/resources/previews/021/548/095/non_2x/default-profile-picture-avatar-user-avatar-icon-person-icon-head-icon-profile-picture-icons-default-anonymous-user-male-and-female-businessman-photo-placeholder-social-network-avatar-portrait-free-vector.jpg"
       });
     }
     Navigator.of(context).push(MaterialPageRoute(
@@ -48,12 +47,12 @@ class _Teachers_RegisterState extends State<Teachers_Register> {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text('Account Created Successfully'),
     ));
-
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold( backgroundColor: Colors.white,
+    return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
@@ -77,7 +76,6 @@ class _Teachers_RegisterState extends State<Teachers_Register> {
           key: form_key,
           child: Column(
             children: [
-
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
                 child: TextFormField(
@@ -95,7 +93,7 @@ class _Teachers_RegisterState extends State<Teachers_Register> {
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
                         borderSide:
-                        BorderSide(width: 1.w, color: Colors.grey.shade400),
+                            BorderSide(width: 1.w, color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(8.r),
                       )),
                 ),
@@ -117,7 +115,7 @@ class _Teachers_RegisterState extends State<Teachers_Register> {
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
                         borderSide:
-                        BorderSide(width: 1.w, color: Colors.grey.shade400),
+                            BorderSide(width: 1.w, color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(8.r),
                       )),
                 ),
@@ -139,11 +137,12 @@ class _Teachers_RegisterState extends State<Teachers_Register> {
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
                         borderSide:
-                        BorderSide(width: 1.w, color: Colors.grey.shade400),
+                            BorderSide(width: 1.w, color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(8.r),
                       )),
                 ),
-              ), Padding(
+              ),
+              Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
                 child: TextFormField(
                   controller: exp_ctrl,
@@ -160,7 +159,7 @@ class _Teachers_RegisterState extends State<Teachers_Register> {
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
                         borderSide:
-                        BorderSide(width: 1.w, color: Colors.grey.shade400),
+                            BorderSide(width: 1.w, color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(8.r),
                       )),
                 ),
@@ -182,7 +181,7 @@ class _Teachers_RegisterState extends State<Teachers_Register> {
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
                         borderSide:
-                        BorderSide(width: 1.w, color: Colors.grey.shade400),
+                            BorderSide(width: 1.w, color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(8.r),
                       )),
                 ),
@@ -204,7 +203,7 @@ class _Teachers_RegisterState extends State<Teachers_Register> {
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
                         borderSide:
-                        BorderSide(width: 1.w, color: Colors.grey.shade400),
+                            BorderSide(width: 1.w, color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(8.r),
                       )),
                 ),
@@ -226,7 +225,7 @@ class _Teachers_RegisterState extends State<Teachers_Register> {
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
                         borderSide:
-                        BorderSide(width: 1.w, color: Colors.grey.shade400),
+                            BorderSide(width: 1.w, color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(8.r),
                       )),
                 ),
@@ -237,7 +236,7 @@ class _Teachers_RegisterState extends State<Teachers_Register> {
                   Padding(
                     padding: EdgeInsets.only(top: 80.h),
                     child: GestureDetector(
-                      onTap:() => teacher_data(),
+                      onTap: () => teacher_data(),
                       child: Container(
                         height: 50.h,
                         width: 200.w,
@@ -261,6 +260,7 @@ class _Teachers_RegisterState extends State<Teachers_Register> {
             ],
           ),
         ),
-      ),);
+      ),
+    );
   }
 }

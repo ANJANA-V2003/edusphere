@@ -73,8 +73,8 @@ class _Admin_Teacher_detailsState extends State<Admin_Teacher_details> {
               // Profile Image
               CircleAvatar(
                 radius: 45.r,
-                backgroundImage: AssetImage(
-                    "assets/images/catherine.png"), // Replace with actual image path
+                backgroundImage: NetworkImage(
+                    Teacher_datas["Profile_path"] ?? "No data found"),
                 backgroundColor: Colors.grey[200],
               ),
               SizedBox(height: 10),
@@ -192,34 +192,16 @@ class _Admin_Teacher_detailsState extends State<Admin_Teacher_details> {
                 ),
               ),
               SizedBox(height: 45.h),
+              Teacher_datas["Status"] == 0?
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {select_accept();},
                     child: Container(
                       height: 45.h,
                       width: 150.w,
-                      decoration: BoxDecoration(
-                          border:
-                          Border.all(color: Color(0xff09AEAE), width: 2.w),
-                          borderRadius: BorderRadius.circular(15.r)),
-                      child: Center(
-                        child: Text(
-                          "Reject",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600, fontSize: 18.sp),
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      height: 45.h,
-                      width: 150.w,
-                      decoration: BoxDecoration(
-                          color: Color(0xff09AEAE),
+                      decoration: BoxDecoration(color: Color(0xff09AEAE),
                           border:
                           Border.all(color: Color(0xff09AEAE), width: 2.w),
                           borderRadius: BorderRadius.circular(15.r)),
@@ -227,11 +209,97 @@ class _Admin_Teacher_detailsState extends State<Admin_Teacher_details> {
                         child: Text(
                           "Accept",
                           style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18.sp,
-                              color: Colors.white),
+                              fontWeight: FontWeight.w600, fontSize: 18.sp,color: Colors.white),
                         ),
                       ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {select_reject();},
+                    child: Container(
+                      height: 45.h,
+                      width: 150.w,
+                      decoration: BoxDecoration(
+
+                          border:
+                          Border.all(color: Color(0xff09AEAE), width: 2.w),
+                          borderRadius: BorderRadius.circular(15.r)),
+                      child: Center(
+                        child: Text(
+                          "Reject",
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18.sp,
+                              ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+                  :Teacher_datas["Status"] == 1?Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 50.h,
+                    width: 140.w,
+                    decoration: BoxDecoration(
+                        borderRadius:
+                        BorderRadius.circular(5.r),
+                        color: Colors.green
+                      // Color(0xff73ABFF)
+                    ),
+                    child: Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Accepted",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ): Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 50.h,
+                    width: 140.w,
+                    decoration: BoxDecoration(
+                        borderRadius:
+                        BorderRadius.circular(5.r),
+                        color: Colors.red
+                      // Color(0xff73ABFF)
+                    ),
+                    child: Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Rejected",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white),
+                            )
+                          ],
+                        )
+                      ],
                     ),
                   ),
                 ],

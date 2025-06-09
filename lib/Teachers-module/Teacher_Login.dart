@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edushpere/Teachers-module/Teacher_Navigationbar.dart';
 import 'package:edushpere/Teachers-module/Teacher_home.dart';
 import 'package:edushpere/Teachers-module/Teachers_register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,36 +19,105 @@ class TeacherLogin extends StatefulWidget {
 class _TeacherLoginState extends State<TeacherLogin> {
   final form_key = GlobalKey<FormState>();
 
-  final name_ctrl = TextEditingController();
+  final mail_ctrl = TextEditingController();
   final pswd_ctrl = TextEditingController();
   String id = "";
 
-  void teacher_login() async {
-    final user = await FirebaseFirestore.instance
-        .collection("Teachers_register")
-        .where("Name", isEqualTo: name_ctrl.text)
-        .where("Password", isEqualTo: pswd_ctrl.text)
-        .get();
-    if (user.docs.isNotEmpty) {
-      id = user.docs[0].id;
-      print("$id");
-      SharedPreferences teacher_data =await SharedPreferences.getInstance();
-     teacher_data.setString("user_id", id);
-      Navigator.push(context, MaterialPageRoute(
-        builder: (context) {
-          return Teacher_Navigationbar();
-        },
-      ));
-    }
-    else{
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Invalid username or ID!'),
-          backgroundColor: Colors.red,
-        ),
+  bool isLoading = false;
+
+  // Future<void> teacherLogin() async {
+  //   try {
+  //     setState(() => isLoading = true);
+  //
+  //     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //       email: mail_ctrl.text.trim(),
+  //       password: pswd_ctrl.text.trim(),
+  //     );
+  //
+  //     SharedPreferences teacherData = await SharedPreferences.getInstance();
+  //     teacherData.setString("user_id", credential.user!.uid);
+  //
+  //     Navigator.pushReplacement(context, MaterialPageRoute(
+  //       builder: (context) => Teacher_Navigationbar(),
+  //     ));
+  //   } on FirebaseAuthException catch (e) {
+  //     String message = "Login failed. Please try again.";
+  //     if (e.code == 'user-not-found') {
+  //       message = "No user found with this email.";
+  //     } else if (e.code == 'wrong-password') {
+  //       message = "Incorrect password.";
+  //     }
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text(message), backgroundColor: Colors.red),
+  //     );
+  //   } finally {
+  //     setState(() => isLoading = false);
+  //   }
+  // }
+
+  Future<void> teacherLogin() async {
+    try {
+      setState(() => isLoading = true);
+
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: mail_ctrl.text.trim(),
+        password: pswd_ctrl.text.trim(),
       );
+
+      // Get UID
+      final uid = credential.user!.uid;
+
+      // Fetch teacher document using UID
+      final doc = await FirebaseFirestore.instance
+          .collection("Teachers_register")
+          .doc(uid)
+          .get();
+
+      if (doc.exists) {
+        final status = doc['Status'];
+
+        if (status == 1) {
+          SharedPreferences teacherData = await SharedPreferences.getInstance();
+          teacherData.setString("user_id", uid);
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => Teacher_Navigationbar()),
+          );
+        } else {
+          await FirebaseAuth.instance.signOut(); // sign out if rejected
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Your account request was rejected or not approved yet."),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } else {
+        await FirebaseAuth.instance.signOut(); // No matching Firestore doc
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("No matching teacher record found."),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      String message = "Login failed. Please try again.";
+      if (e.code == 'user-not-found') {
+        message = "No user found with this email.";
+      } else if (e.code == 'wrong-password') {
+        message = "Incorrect password.";
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message), backgroundColor: Colors.red),
+      );
+    } finally {
+      setState(() => isLoading = false);
     }
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,16 +179,18 @@ class _TeacherLoginState extends State<TeacherLogin> {
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 200.h),
                 child: TextFormField(
-                  controller: name_ctrl,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Empty username";
-                    }
-                  },
+                  controller:   mail_ctrl,
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return "Email is required";
+                      }
+                      return null;
+                    },
                   decoration: InputDecoration(
                       fillColor: Color(0xffD9D9D9),
                       filled: true,
-                      hintText: "Username",
+                      hintText: "Email",
                       hintStyle: GoogleFonts.poppins(
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
@@ -132,10 +204,12 @@ class _TeacherLoginState extends State<TeacherLogin> {
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 45.h),
                 child: TextFormField(
                   controller: pswd_ctrl,
+                  obscureText: true,
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Empty password";
+                    if (value == null || value.trim().isEmpty) {
+                      return "Password is required";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                       fillColor: Color(0xffD9D9D9),
@@ -166,32 +240,28 @@ class _TeacherLoginState extends State<TeacherLogin> {
                   )
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 100.h),
-                    child: GestureDetector(
-                      onTap: () => teacher_login(),
-                      child: Container(
-                        height: 50.h,
-                        width: 150.w,
-                        decoration: BoxDecoration(
-                            color: Color(0xff23ADB4),
-                            borderRadius: BorderRadius.circular(12.r)),
-                        child: Center(
-                          child: Text(
-                            "LOGIN",
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20.sp,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
+              ElevatedButton(
+                onPressed: () {
+                  if (form_key.currentState!.validate()) {
+                    teacherLogin();
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff23ADB4),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                ),
+                child: isLoading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : Text(
+                  "Login",
+                  style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20.sp,
+                  ),
+                ),
               ),
               SizedBox(height: 10.h,),
               Row( mainAxisAlignment: MainAxisAlignment.center,

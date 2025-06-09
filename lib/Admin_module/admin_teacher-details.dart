@@ -18,6 +18,7 @@ class _Admin_Teacher_detailsState extends State<Admin_Teacher_details> {
         .collection("Teachers_register")
         .doc(widget.id)
         .update({"Status": 1});
+    Navigator.pop(context);
   }
 
   Future<void> select_reject() async {
@@ -25,6 +26,8 @@ class _Admin_Teacher_detailsState extends State<Admin_Teacher_details> {
         .collection("Teachers_register")
         .doc(widget.id)
         .update({"Status": 2});
+    Navigator.pop(context);
+
   }
 
   @override

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Student_Register extends StatefulWidget {
   const Student_Register({super.key});
@@ -51,19 +52,22 @@ class _Student_RegisterState extends State<Student_Register> {
         "Age": agectrl.text,
         "ID": stdnt_idctrl.text,
         "Place": placectrl.text,
-        "Class":classctrl.text,
+        "Class": classctrl.text,
         "Profile_path":
         "https://th.bing.com/th/id/OIP.A1JjNu8jIRxaTJHbD_EtFwHaIJ?rs=1&pid=ImgDetMain"
       });
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString("student_class", classctrl.text);
+
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) {
+          return Parents_Login();
+        },
+      ));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Account Created Successfully'),
+      ));
     }
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) {
-        return Parents_Login();
-      },
-    ));
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('Account Created Successfully'),
-    ));
 
   }
 
@@ -102,6 +106,7 @@ class _Student_RegisterState extends State<Student_Register> {
                     if (value!.isEmpty) {
                       return "Empty first name";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                       fillColor: Color(0xffFFF8F8),
@@ -124,6 +129,7 @@ class _Student_RegisterState extends State<Student_Register> {
                     if (value!.isEmpty) {
                       return "Empty last name";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                       fillColor: Color(0xffFFF8F8),
@@ -146,6 +152,7 @@ class _Student_RegisterState extends State<Student_Register> {
                     if (value!.isEmpty) {
                       return "Empty guardian name";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                       fillColor: Color(0xffFFF8F8),
@@ -168,7 +175,7 @@ class _Student_RegisterState extends State<Student_Register> {
                     fillColor: Color(0xffFFF8F8),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.r)),
-                    labelText: 'Select Date',
+                    labelText: 'Date of birth',
                     labelStyle: GoogleFonts.poppins(
                         fontSize: 15.sp, fontWeight: FontWeight.w600),
                     suffixIcon: IconButton(
@@ -187,6 +194,7 @@ class _Student_RegisterState extends State<Student_Register> {
                     if (value!.isEmpty) {
                       return "Empty age";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                       fillColor: Color(0xffFFF8F8),
@@ -208,6 +216,7 @@ class _Student_RegisterState extends State<Student_Register> {
                     if (value!.isEmpty) {
                       return "Empty class";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                       fillColor: Color(0xffFFF8F8),
@@ -230,6 +239,7 @@ class _Student_RegisterState extends State<Student_Register> {
                     if (value!.isEmpty) {
                       return "Empty Id";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                       fillColor: Color(0xffFFF8F8),
@@ -252,6 +262,7 @@ class _Student_RegisterState extends State<Student_Register> {
                     if (value!.isEmpty) {
                       return "Empty Place";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                       fillColor: Color(0xffFFF8F8),
@@ -274,6 +285,7 @@ class _Student_RegisterState extends State<Student_Register> {
                     if (value!.isEmpty) {
                       return "Empty Number";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                       fillColor: Color(0xffFFF8F8),

@@ -33,11 +33,11 @@ class _Teacher_AddNotificationState extends State<Teacher_AddNotification> {
   String? _selectedClass;
 
   final List<String> _classes = [
-    'Class 1',
-    'Class 2',
-    'Class 3',
-    'Class 4',
-    'Class 5'
+    '1',
+    '2',
+    '3',
+    '4',
+    '5'
   ];
 
   Future<void> _pickDate() async {

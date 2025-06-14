@@ -22,28 +22,78 @@ class _Parents_RegisterState extends State<Parents_Register> {
   // final idctrl = TextEditingController();
   final phnctrl = TextEditingController();
 
+  bool _isPasswordVisible = false;
+
+
+  // Future<void> parents_data() async {
+  //   if (form_key.currentState!.validate()) {
+  //     FirebaseFirestore.instance.collection("Parents_register").add({
+  //       "Name": namectrl.text,
+  //       "Phone": phnctrl.text,
+  //       "Email": mailctrl.text,
+  //       "Password": pswdctrl.text,
+  //       // "ID": idctrl.text,
+  //       "Profile_path":
+  //           "https://th.bing.com/th/id/OIP.A1JjNu8jIRxaTJHbD_EtFwHaIJ?rs=1&pid=ImgDetMain"
+  //     });
+  //   }
+  //   Navigator.of(context).push(MaterialPageRoute(
+  //     builder: (context) {
+  //       return Student_Register();
+  //     },
+  //   ));
+  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //     content: Text('Account Created Successfully'),
+  //   ));
+  //
+  // }
+
   Future<void> parents_data() async {
     if (form_key.currentState!.validate()) {
-      FirebaseFirestore.instance.collection("Parents_register").add({
-        "Name": namectrl.text,
-        "Phone": phnctrl.text,
-        "Email": mailctrl.text,
-        "Password": pswdctrl.text,
-        // "ID": idctrl.text,
-        "Profile_path":
-            "https://th.bing.com/th/id/OIP.A1JjNu8jIRxaTJHbD_EtFwHaIJ?rs=1&pid=ImgDetMain"
-      });
-    }
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) {
-        return Student_Register();
-      },
-    ));
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('Account Created Successfully'),
-    ));
+      try {
+        // Create the user with email and password
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+          email: mailctrl.text.trim(),
+          password: pswdctrl.text.trim(),
+        );
 
+        // Save additional user details to Firestore
+        await FirebaseFirestore.instance
+            .collection("Parents_register")
+            .doc(userCredential.user!.uid)
+            .set({
+          "Name": namectrl.text,
+          "Phone": phnctrl.text,
+          "Email": mailctrl.text,
+          "Profile_path":
+          "https://th.bing.com/th/id/OIP.A1JjNu8jIRxaTJHbD_EtFwHaIJ?rs=1&pid=ImgDetMain"
+        });
+
+        // Navigate and show success
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => Student_Register(),
+        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Account Created Successfully')),
+        );
+      } on FirebaseAuthException catch (e) {
+        String errorMessage = "An error occurred";
+        if (e.code == 'email-already-in-use') {
+          errorMessage = "This email is already in use.";
+        } else if (e.code == 'invalid-email') {
+          errorMessage = "This email is invalid.";
+        } else if (e.code == 'weak-password') {
+          errorMessage = "Password should be at least 6 characters.";
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(errorMessage)),
+        );
+      }
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -129,24 +179,41 @@ class _Parents_RegisterState extends State<Parents_Register> {
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
                 child: TextFormField(
                   controller: pswdctrl,
+                  obscureText: !_isPasswordVisible, // Toggle based on state
                   validator: (value) {
-                    if (value!.isEmpty) {
+                    if (value == null || value.isEmpty) {
                       return "Empty password";
+                    } else if (value.length < 6) {
+                      return "Password too short";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
-                      fillColor: Color(0xffFFF8F8),
-                      filled: true,
-                      hintText: "Password",
-                      hintStyle: GoogleFonts.poppins(
-                          fontSize: 15.sp, fontWeight: FontWeight.w600),
-                      border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(width: 1.w, color: Colors.grey.shade400),
-                        borderRadius: BorderRadius.circular(8.r),
-                      )),
+                    fillColor: Color(0xffFFF8F8),
+                    filled: true,
+                    hintText: "Password",
+                    hintStyle: GoogleFonts.poppins(
+                        fontSize: 15.sp, fontWeight: FontWeight.w600),
+                    border: OutlineInputBorder(
+                      borderSide:
+                      BorderSide(width: 1.w, color: Colors.grey.shade400),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        });
+                      },
+                    ),
+                  ),
                 ),
               ),
+
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
                 child: TextFormField(

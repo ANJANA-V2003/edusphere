@@ -40,35 +40,37 @@ class _Parents_NavigationbarState extends State<Parents_Navigationbar> {
                 Icons.home,
               ),
               label: "Home",
-              backgroundColor: Color(0xffD9D9D9)),
+              backgroundColor: Color(0xff74d0d8)),
           BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.question),
               label: "Quiz",
-              backgroundColor: Color(0xffD9D9D9)),
+              backgroundColor: Color(0xff74d0d8)),
           BottomNavigationBarItem(
               icon: Icon(
                 CupertinoIcons.chat_bubble_2_fill,
               ),
               label: "Message",
-              backgroundColor: Color(0xffD9D9D9)),
+              backgroundColor: Color(0xff74d0d8)),
           BottomNavigationBarItem(
               icon: Icon(
                 CupertinoIcons.calendar,
               ),
               label: "Calendar",
-              backgroundColor: Color(0xffD9D9D9)),
+              backgroundColor: Color(0xff74d0d8)),
         ],
-        type: BottomNavigationBarType.shifting,
+        type: BottomNavigationBarType.fixed,
         currentIndex: _Index,
+        unselectedItemColor: Colors.white,
         selectedItemColor: Color(0xff0B99A0),
         selectedIconTheme: IconThemeData(color: Color(0xff0B99A0)),
         selectedLabelStyle: GoogleFonts.poppins(
-          fontWeight: FontWeight.bold,
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
         ),
         iconSize: 30,
         onTap: _onItemTapped,
         elevation: 5,
-        backgroundColor: Colors.green[600],
+        backgroundColor: Color(0xff74d0d8),
       ),
     );
   }

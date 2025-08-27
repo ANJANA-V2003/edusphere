@@ -141,23 +141,23 @@ class _Student_HomepageState extends State<Student_Homepage> {
                   )
                 ],
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                child: TextFormField(
-                  decoration: InputDecoration(prefixIcon: Icon(Icons.search),
-                      hintText: "Search",
-                      hintStyle: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15.sp,
-                          color: Colors.grey.shade600),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide:
-                          BorderSide(color: Colors.grey.shade600, width: 3))),
-                ),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              //   child: TextFormField(
+              //     decoration: InputDecoration(prefixIcon: Icon(Icons.search),
+              //         hintText: "Search",
+              //         hintStyle: GoogleFonts.poppins(
+              //             fontWeight: FontWeight.w500,
+              //             fontSize: 15.sp,
+              //             color: Colors.grey.shade600),
+              //         border: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(10.r),
+              //             borderSide:
+              //             BorderSide(color: Colors.grey.shade600, width: 3))),
+              //   ),
+              // ),
               SizedBox(
-                height: 15.h,
+                height: 30.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

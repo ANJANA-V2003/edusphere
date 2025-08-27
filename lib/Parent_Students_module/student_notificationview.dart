@@ -13,18 +13,31 @@ class Student_Notificationview extends StatefulWidget {
 }
 
 class _Student_NotificationviewState extends State<Student_Notificationview> {
+
   String? studentClass;
+
+  @override
   void initState() {
     super.initState();
     loadClass();
   }
 
+  // Future<void> loadClass() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     studentClass = prefs.getString("student_class");
+  //   });
+  // }
+
   Future<void> loadClass() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? loadedClass = prefs.getString("student_class");
+    print("Loaded student class: $loadedClass"); // <-- DEBUG
     setState(() {
-      studentClass = prefs.getString("student_class");
+      studentClass = loadedClass;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +54,24 @@ class _Student_NotificationviewState extends State<Student_Notificationview> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: studentClass == null
+      body:
+      studentClass == null
           ? Center(child: CircularProgressIndicator())
-          : StreamBuilder(
+          :
+      StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("Teacher_notifications")
                   .where("class", isEqualTo: studentClass)
-                  .orderBy("timestamp", descending: true) // optional
+                 // .orderBy("timestamp", descending: true) // optional
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
+                }
+
+                if (snapshot.hasError) {
+                  print("Firestore error: ${snapshot.error}");
+                  return Center(child: Text("Something went wrong."));
                 }
 
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {

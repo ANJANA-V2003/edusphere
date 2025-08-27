@@ -57,7 +57,7 @@ class _Student_RegisterState extends State<Student_Register> {
         "https://th.bing.com/th/id/OIP.A1JjNu8jIRxaTJHbD_EtFwHaIJ?rs=1&pid=ImgDetMain"
       });
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString("student_class", classctrl.text);
+      await prefs.setString("student_class", classctrl.text.trim());
 
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) {

@@ -19,65 +19,89 @@ class _Student_ResultpageState extends State<Student_Resultpage> {
             style: GoogleFonts.poppins(
                 fontSize: 20.sp, fontWeight: FontWeight.w600)),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.black, size: 24.sp),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 30.h),
+            SizedBox(height: 30.h,),
 
             // Ratings
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Behaviour',
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold, fontSize: 16.sp)),
-                    RatingBarIndicator(
-                      rating: 4,
-                      itemCount: 5,
-                      itemSize: 24.sp,
-                      itemBuilder: (context, _) =>
-                          const Icon(Icons.star, color: Colors.amber),
+                    Expanded(
+                      flex: 2,
+                      child: Text('Behaviour',
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.bold, fontSize: 16.sp)),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: RatingBarIndicator(
+                        rating: 4,
+                        itemCount: 5,
+                        itemSize: 24.sp,
+                        itemBuilder: (context, _) =>
+                            const Icon(Icons.star, color: Colors.amber),
+                      ),
                     ),
                   ],
                 ),
                 SizedBox(height: 10.h),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Attendance',
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold, fontSize: 16.sp)),
-                    RatingBarIndicator(
-                      rating: 4,
-                      itemCount: 5,
-                      itemSize: 24.sp,
-                      itemBuilder: (context, _) =>
-                          const Icon(Icons.star, color: Colors.amber),
+                    Expanded(
+                      flex: 2,
+                      child: Text('Attendance',
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.bold, fontSize: 16.sp)),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: RatingBarIndicator(
+                        rating: 4,
+                        itemCount: 5,
+                        itemSize: 24.sp,
+                        itemBuilder: (context, _) =>
+                            const Icon(Icons.star, color: Colors.amber),
+                      ),
                     ),
                   ],
                 ),
                 SizedBox(height: 10.h),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Work',
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold, fontSize: 16.sp)),
-                    RatingBarIndicator(
-                      rating: 4,
-                      itemCount: 5,
-                      itemSize: 24.sp,
-                      itemBuilder: (context, _) =>
-                          const Icon(Icons.star, color: Colors.amber),
+                    Expanded(
+                      flex: 2,
+                      child: Text('Work',
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.bold, fontSize: 16.sp)),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: RatingBarIndicator(
+                        rating: 4,
+                        itemCount: 5,
+                        itemSize: 24.sp,
+                        itemBuilder: (context, _) =>
+                            const Icon(Icons.star, color: Colors.amber),
+                      ),
                     ),
                   ],
                 ),
+                ]
+            ),
                 SizedBox(height: 60.h),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -290,8 +314,8 @@ class _Student_ResultpageState extends State<Student_Resultpage> {
                     ),
                   ],
                 )
-              ],
-            ),
+            //   ],
+            // ),
           ],
         ),
       ),

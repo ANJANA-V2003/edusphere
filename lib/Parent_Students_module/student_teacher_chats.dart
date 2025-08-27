@@ -13,15 +13,12 @@ class _Student_TeacherChatsState extends State<Student_TeacherChats> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(
+      automaticallyImplyLeading: false,
       centerTitle: true,
       title: Text(
-        'Teachers',
+        'Chats',
         style:
         GoogleFonts.poppins(fontSize: 22.sp, fontWeight: FontWeight.w600),
-      ),
-      leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios),
-        onPressed: () => Navigator.pop(context),
       ),
     ),body:  ListView.builder(
       itemCount: 5,

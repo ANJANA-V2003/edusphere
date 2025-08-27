@@ -18,6 +18,7 @@ class _Calendar_TabbarState extends State<Calendar_Tabbar> {
   Widget build(BuildContext context) {
     return DefaultTabController(length: 3,
       child: Scaffold(appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(
           'Calendar',

@@ -33,7 +33,7 @@ class _Student_ExamsState extends State<Student_Exams> {
         elevation: 0,
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black, size: 24.sp),
+          icon: Icon(Icons.arrow_back_ios, color: Colors.black, size: 24.sp),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,

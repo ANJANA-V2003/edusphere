@@ -16,11 +16,12 @@ class _Admin_StudentsState extends State<Admin_Students> {
   int selectedCategory = 0;
 
   final List<String> categories = [
-    "Class 1",
-    "Class 2",
-    "Class 3",
-    "Class 4",
-    "Class 5"
+    "All",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
   ];
   @override
   Widget build(BuildContext context) {
@@ -47,15 +48,13 @@ class _Admin_StudentsState extends State<Admin_Students> {
               itemCount: categories.length,
               itemBuilder: (context, index) => Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.h),
-                child: ChoiceChip(
-                  checkmarkColor: Colors.black,
+                child: ChoiceChip(checkmarkColor:Color(0xff23ADB4) ,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.w),
                   ),
-                  label: Text(
-                    categories[index],
+                  label:  index ==0?Text(categories[index],
                     style: GoogleFonts.poppins(fontWeight: FontWeight.w700),
-                  ),
+                  ):Text("Class ${categories[index]}"),
                   selected: selectedCategory == index,
                   selectedColor: Color(0xff23ADB4),
                   backgroundColor: Color(0xffA3F2F7),
@@ -66,14 +65,19 @@ class _Admin_StudentsState extends State<Admin_Students> {
           ),
           Expanded(
             child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("Students_register")
-                  .snapshots(),
+              stream: selectedCategory == 0
+                  ? FirebaseFirestore.instance
+                      .collection("Students_register")
+                      .snapshots()
+                  : FirebaseFirestore.instance
+                      .collection("Students_register")
+                      .where("Class", isEqualTo: categories[selectedCategory])
+                      .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                       child:
-                      CircularProgressIndicator()); //loading action , shows that data is
+                          CircularProgressIndicator()); //loading action , shows that data is
                 }
 
                 if (!snapshot.hasData) {
@@ -92,7 +96,8 @@ class _Admin_StudentsState extends State<Admin_Students> {
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
-                            return Admin_Student_details(id: Student_datas[index].id);
+                            return Admin_Student_details(
+                                id: Student_datas[index].id);
                           },
                         ));
                       },

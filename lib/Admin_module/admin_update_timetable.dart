@@ -4,14 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Admin_AddTimetable extends StatefulWidget {
-  const Admin_AddTimetable({super.key});
+class Admin_UpdateTimetable extends StatefulWidget {
+  const Admin_UpdateTimetable(
+      {super.key, required this.docId, required this.timetableData});
+
+  final String docId;
+  final Map<String, dynamic> timetableData;
 
   @override
-  State<Admin_AddTimetable> createState() => _Admin_AddTimetableState();
+  State<Admin_UpdateTimetable> createState() => _Admin_UpdateTimetableState();
 }
 
-class _Admin_AddTimetableState extends State<Admin_AddTimetable> {
+class _Admin_UpdateTimetableState extends State<Admin_UpdateTimetable> {
   // List of available classes
   final List<String> classes = [
     "1",
@@ -23,13 +27,36 @@ class _Admin_AddTimetableState extends State<Admin_AddTimetable> {
 
   String? selectedClass; // stores selected class
 
-  final TextEditingController _ninecntrl = TextEditingController();
-  final TextEditingController _tencntrl = TextEditingController();
-  final TextEditingController _elevncntrl = TextEditingController();
-  final TextEditingController _twlvecntrl = TextEditingController();
-  final TextEditingController _onecntrl = TextEditingController();
+  late TextEditingController _ninecntrl = TextEditingController();
+  late TextEditingController _tencntrl = TextEditingController();
+  late TextEditingController _elevncntrl = TextEditingController();
+  late TextEditingController _twlvecntrl = TextEditingController();
+  late TextEditingController _onecntrl = TextEditingController();
 
-  Future<void> add_timeTable() async {
+  @override
+  void initState() {
+    super.initState();
+
+    selectedClass = widget.timetableData["Class"];
+
+    _ninecntrl = TextEditingController(text: widget.timetableData["9:00 am"]);
+    _tencntrl = TextEditingController(text: widget.timetableData["10:00 am"]);
+    _elevncntrl = TextEditingController(text: widget.timetableData["11:00 am"]);
+    _twlvecntrl = TextEditingController(text: widget.timetableData["12:00 pm"]);
+    _onecntrl = TextEditingController(text: widget.timetableData["1:00 pm"]);
+  }
+
+  @override
+  void dispose() {
+    _ninecntrl.dispose();
+    _tencntrl.dispose();
+    _elevncntrl.dispose();
+    _twlvecntrl.dispose();
+    _onecntrl.dispose();
+    super.dispose();
+  }
+
+  Future<void> update_timeTable() async {
     if (_ninecntrl.text.isEmpty ||
         _tencntrl.text.isEmpty ||
         _elevncntrl.text.isEmpty ||
@@ -42,25 +69,27 @@ class _Admin_AddTimetableState extends State<Admin_AddTimetable> {
       return;
     }
 
-    try{
-      await FirebaseFirestore.instance.collection("Admin_Timetable").add({
-        "9:00 am" : _ninecntrl.text,
-        "10:00 am" : _tencntrl.text,
-        "11:00 am" : _elevncntrl.text,
-        "12:00 pm" : _twlvecntrl.text,
-        "1:00 pm" : _onecntrl.text,
-        "Class" : selectedClass,
+    try {
+      await FirebaseFirestore.instance
+          .collection("Admin_Timetable")
+          .doc(widget.docId)
+          .update({
+        "9:00 am": _ninecntrl.text,
+        "10:00 am": _tencntrl.text,
+        "11:00 am": _elevncntrl.text,
+        "12:00 pm": _twlvecntrl.text,
+        "1:00 pm": _onecntrl.text,
+        "Class": selectedClass,
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Timetable added successfully")),
+        SnackBar(content: Text("Timetable updated successfully")),
       );
 
       Navigator.pop(context);
-    }
-    catch(e){
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Failed to add the Timetable: \$e")),
+        SnackBar(content: Text("Failed to update the Timetable: \$e")),
       );
     }
   }
@@ -83,46 +112,18 @@ class _Admin_AddTimetableState extends State<Admin_AddTimetable> {
       ),
       body: Column(
         children: [
-          // 🔽 Dropdown to select class
-          Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-            child: DropdownButtonFormField<String>(
-              decoration: InputDecoration(
-                labelText: "Select Class",
-                labelStyle: GoogleFonts.poppins(),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.r),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 20.w, top: 15.h),
+                child: Text(
+                  "Class ${selectedClass}",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w700, fontSize: 23.sp),
                 ),
-              ),
-              value: selectedClass,
-              items: classes.map((className) {
-                return DropdownMenuItem(
-                  value: className,
-                  child: Text(
-                    "Class ${className}",
-                    style: GoogleFonts.poppins(fontSize: 16.sp),
-                  ),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  selectedClass = value;
-                });
-              },
-            ),
+              )
+            ],
           ),
-          // Row(
-          //   children: [
-          //     Padding(
-          //       padding: EdgeInsets.only(left: 20.w, top: 15.h),
-          //       child: Text(
-          //         "Class 1",
-          //         style: GoogleFonts.poppins(
-          //             fontWeight: FontWeight.w700, fontSize: 23.sp),
-          //       ),
-          //     )
-          //   ],
-          // ),
           SizedBox(
             height: 20.h,
           ),
@@ -295,7 +296,8 @@ class _Admin_AddTimetableState extends State<Admin_AddTimetable> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              GestureDetector(onTap: () => add_timeTable(),
+              GestureDetector(
+                onTap: () => update_timeTable(),
                 child: Container(
                   height: 60.h,
                   width: 160.w,
@@ -304,7 +306,7 @@ class _Admin_AddTimetableState extends State<Admin_AddTimetable> {
                       borderRadius: BorderRadius.circular(12.r)),
                   child: Center(
                     child: Text(
-                      "Save",
+                      "Update",
                       style: GoogleFonts.poppins(
                           fontSize: 22.sp,
                           fontWeight: FontWeight.w600,

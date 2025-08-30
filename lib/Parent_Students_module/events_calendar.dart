@@ -45,7 +45,7 @@ class _Events_CalendarState extends State<Events_Calendar> {
                       padding: EdgeInsets.all(10.w),
                       decoration: BoxDecoration(
                         border:
-                            Border.all(width: 1.w, color: Colors.grey.shade400),
+                            Border.all(width: 1.w, color: Colors.grey.shade100),
                         color: Color(0xffD9D9D9),
                         borderRadius: BorderRadius.circular(10.r),
                       ),
@@ -55,11 +55,11 @@ class _Events_CalendarState extends State<Events_Calendar> {
                           Row(
                             children: [
                               SizedBox(
-                                width: 10.w,
+                                width: 5.w,
                               ),
                               Container(
-                                height: 100.h,
-                                width: 100.w,
+                                height: 80.h,
+                                width: 70.w,
                                 decoration: BoxDecoration(
                                     color: Colors.grey,
                                     image: DecorationImage(
@@ -67,6 +67,7 @@ class _Events_CalendarState extends State<Events_Calendar> {
                                             "assets/images/event.png"),
                                         fit: BoxFit.cover)),
                               ),
+                              SizedBox(width: 5,),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -100,7 +101,7 @@ class _Events_CalendarState extends State<Events_Calendar> {
                                         ),
                                         child: Text(notice[index]["Details"],
                                             style: GoogleFonts.poppins(
-                                                fontSize: 18.sp,
+                                                fontSize: 15.sp,
                                                 fontWeight: FontWeight.w600)),
                                       ),
                                     ],
@@ -111,8 +112,8 @@ class _Events_CalendarState extends State<Events_Calendar> {
                                         padding: EdgeInsets.only(left: 10.w),
                                         child: Text(notice[index]["Date"],
                                             style: GoogleFonts.poppins(
-                                                fontSize: 18.sp,
-                                                fontWeight: FontWeight.w600,
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.w400,
                                                 color: Color(0xff0B99A0))),
                                       ),
                                     ],

@@ -30,9 +30,9 @@ class _Student_NotificationviewState extends State<Student_Notificationview> {
   // }
 
   Future<void> loadClass() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? loadedClass = prefs.getString("student_class");
-    print("Loaded student class: $loadedClass"); // <-- DEBUG
+    final prefs = await SharedPreferences.getInstance();
+    final loadedClass = prefs.getString("student_class");
+    print("//////Loaded student class: $loadedClass"); // <-- DEBUG
     setState(() {
       studentClass = loadedClass;
     });
@@ -56,12 +56,12 @@ class _Student_NotificationviewState extends State<Student_Notificationview> {
       ),
       body:
       studentClass == null
-          ? Center(child: CircularProgressIndicator())
+          ?const  Center(child: CircularProgressIndicator())
           :
       StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("Teacher_notifications")
-                  .where("Class", isEqualTo: studentClass)
+                  .where("class", isEqualTo: studentClass)
                  // .orderBy("timestamp", descending: true) // optional
                   .snapshots(),
               builder: (context, snapshot) {

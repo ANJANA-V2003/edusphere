@@ -27,10 +27,21 @@ class _Parents_LoginState extends State<Parents_Login> {
         .where("ID", isEqualTo: idctrl.text)
         .get();
     if (user.docs.isNotEmpty) {
-      id = user.docs[0].id;
-      print("/////////////////$id");
-      SharedPreferences user_data = await SharedPreferences.getInstance();
-      user_data.setString("user_id", id);
+      final doc = user.docs[0];
+          // .id;
+      final id = doc.id;
+      final data = doc.data();
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString("user_id", id);
+      // print("/////////////////$id");
+      // SharedPreferences user_data = await SharedPreferences.getInstance();
+      // user_data.setString("user_id", id);
+
+      if(data.containsKey("Class")){
+        await prefs.setString("student_class", data["Class"]);
+        print("Saved student class:${data["Class"]}");
+      }
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
           return Parents_Navigationbar();
@@ -55,7 +66,7 @@ class _Parents_LoginState extends State<Parents_Login> {
     if ( doc.exists){
       final data = doc.data();
       final studentClass = data?['Class'];
-
+      
       if (studentClass != null){
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString("student_class", studentClass);

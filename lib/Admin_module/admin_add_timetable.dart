@@ -81,7 +81,7 @@ class _Admin_AddTimetableState extends State<Admin_AddTimetable> {
         centerTitle: true,
         backgroundColor: Color(0xff23ADB4),
       ),
-      body: Column(
+      body: ListView(
         children: [
           // 🔽 Dropdown to select class
           Padding(

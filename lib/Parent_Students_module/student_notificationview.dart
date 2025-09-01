@@ -61,7 +61,7 @@ class _Student_NotificationviewState extends State<Student_Notificationview> {
       StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("Teacher_notifications")
-                  .where("class", isEqualTo: studentClass)
+                  .where("Class", isEqualTo: studentClass)
                  // .orderBy("timestamp", descending: true) // optional
                   .snapshots(),
               builder: (context, snapshot) {

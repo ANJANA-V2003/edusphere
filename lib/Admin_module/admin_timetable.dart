@@ -84,10 +84,21 @@ class _Admin_TimetableState extends State<Admin_Timetable> {
                                 );
                               },
                             )),
-                            child: SvgPicture.asset(
-                              "assets/icons/edit_icon.svg",
-                              height: 19.h,
-                              width: 19.w,
+                            child: GestureDetector(
+                              onTap: () {
+                                FirebaseFirestore.instance
+                                    .collection("Admin_Timetable")
+                                    .doc(data[index].id)
+                                    .delete();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text("Timetable deleted")),
+                                );
+                              },
+                              child: SvgPicture.asset(
+                                "assets/icons/edit_icon.svg",
+                                height: 19.h,
+                                width: 19.w,
+                              ),
                             ),
                           ),
                         ),

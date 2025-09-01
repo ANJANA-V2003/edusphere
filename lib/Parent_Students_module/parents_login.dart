@@ -18,7 +18,7 @@ class _Parents_LoginState extends State<Parents_Login> {
 
   final fnamectrl = TextEditingController();
   final idctrl = TextEditingController();
-  String id = "";
+  late String id;
 
   void student_login() async {
     final user = await FirebaseFirestore.instance
@@ -28,16 +28,15 @@ class _Parents_LoginState extends State<Parents_Login> {
         .get();
     if (user.docs.isNotEmpty) {
       id = user.docs[0].id;
-      print("$id");
-      SharedPreferences user_data =await SharedPreferences.getInstance();
+      print("/////////////////$id");
+      SharedPreferences user_data = await SharedPreferences.getInstance();
       user_data.setString("user_id", id);
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
           return Parents_Navigationbar();
         },
       ));
-    }
-    else{
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Invalid username or ID!'),
@@ -46,9 +45,28 @@ class _Parents_LoginState extends State<Parents_Login> {
       );
     }
   }
+
+  Future<void> fetchAndSaveStudentClass(String studentId) async {
+    final doc = await FirebaseFirestore.instance
+        .collection("Students_register")
+        .doc(studentId)
+        .get();
+
+    if ( doc.exists){
+      final data = doc.data();
+      final studentClass = data?['Class'];
+
+      if (studentClass != null){
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString("student_class", studentClass);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.white,
+    return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Form(
           key: form_key,
@@ -120,7 +138,7 @@ class _Parents_LoginState extends State<Parents_Login> {
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
                         borderSide:
-                        BorderSide(width: 1.w, color: Colors.grey.shade400),
+                            BorderSide(width: 1.w, color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(10.r),
                       )),
                 ),
@@ -143,7 +161,7 @@ class _Parents_LoginState extends State<Parents_Login> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.r),
                         borderSide:
-                        BorderSide(width: 1.w, color: Colors.grey.shade400),
+                            BorderSide(width: 1.w, color: Colors.grey.shade400),
                       )),
                 ),
               ),
@@ -193,6 +211,7 @@ class _Parents_LoginState extends State<Parents_Login> {
             ],
           ),
         ),
-      ),);
+      ),
+    );
   }
 }

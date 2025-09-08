@@ -115,38 +115,40 @@ class _Student_HomepageState extends State<Student_Homepage> {
                                                 },
                                               ));
                                             },
-                                            child:Stack(
-                                              clipBehavior: Clip.none,
-                                              children: [
-                                                const Icon(Icons.notifications, size:30),
-                                                if(count >0)
-                                                  Positioned(
-                                                    right: -2,
-                                                      top: -2,
-                                                      child: Container(
-                                                        padding: const EdgeInsets.all(4),
-                                                        decoration: const BoxDecoration(
-                                                          color: Colors.red,
-                                                          shape: BoxShape.circle
-                                                        ),
-                                                        constraints: const BoxConstraints(minHeight: 18,minWidth:18 ),
-                                                        child: Center(
-                                                          child: Text('$count',style:const TextStyle(color: Colors.white,fontSize: 10) ,),
-                                                        ),
-                                                      ))
-                                              ],
-                                            )
-                                            // badges.Badge(
-                                            //   backgroundColor:
-                                            //       Color(0xff23ADB4),
-                                            //   label: Text("1"),
-                                            //   isLabelVisible: true,
-                                            //   child: SvgPicture.asset(
-                                            //     "assets/icons/lets-icons_bell-light.svg",
-                                            //     width: 30.w,
-                                            //     color: Colors.black,
-                                            //   ),
-                                            // ),
+                                            child:
+                                            badges.Badge(
+                                              backgroundColor:
+                                                  Color(0xff23ADB4),
+                                              label: Text("1"),
+                                              isLabelVisible: true,
+                                              child: SvgPicture.asset(
+                                                "assets/icons/lets-icons_bell-light.svg",
+                                                width: 30.w,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            // Stack(
+                                            //   clipBehavior: Clip.none,
+                                            //   children: [
+                                            //     const Icon(Icons.notifications, size:30),
+                                            //     if(count >0)
+                                            //       Positioned(
+                                            //         right: -2,
+                                            //           top: -2,
+                                            //           child: Container(
+                                            //             padding: const EdgeInsets.all(4),
+                                            //             decoration: const BoxDecoration(
+                                            //               color: Colors.red,
+                                            //               shape: BoxShape.circle
+                                            //             ),
+                                            //             constraints: const BoxConstraints(minHeight: 18,minWidth:18 ),
+                                            //             child: Center(
+                                            //               child: Text('$count',style:const TextStyle(color: Colors.white,fontSize: 10) ,),
+                                            //             ),
+                                            //           ))
+                                            //   ],
+                                            // )
+
                                           )
                                         ],
                                       ),

@@ -166,46 +166,46 @@ class _Teacher_ExamviewState extends State<Teacher_Examview> {
                               )
                             ],
                           ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: 10.w, top: 5.h),
-                                child: Text("Submitted : 5",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 18.sp,
-                                        fontWeight: FontWeight.w600)),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) {
-                                      return Teacher_ExamReview();
-                                    },
-                                  ));
-                                },
-                                child: Container(
-                                  height: 45.h,
-                                  width: 150.w,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.r),
-                                      color: Color(0xff23ADB4)),
-                                  child: Center(
-                                    child: Text(
-                                      "Open",
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 18.sp,
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
+                          // SizedBox(
+                          //   height: 10.h,
+                          // ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Padding(
+                          //       padding: EdgeInsets.only(left: 10.w, top: 5.h),
+                          //       child: Text("Submitted : 5",
+                          //           style: GoogleFonts.poppins(
+                          //               fontSize: 18.sp,
+                          //               fontWeight: FontWeight.w600)),
+                          //     ),
+                          //     GestureDetector(
+                          //       onTap: () {
+                          //         Navigator.push(context, MaterialPageRoute(
+                          //           builder: (context) {
+                          //             return Teacher_ExamReview();
+                          //           },
+                          //         ));
+                          //       },
+                          //       child: Container(
+                          //         height: 45.h,
+                          //         width: 150.w,
+                          //         decoration: BoxDecoration(
+                          //             borderRadius: BorderRadius.circular(20.r),
+                          //             color: Color(0xff23ADB4)),
+                          //         child: Center(
+                          //           child: Text(
+                          //             "Open",
+                          //             style: GoogleFonts.poppins(
+                          //                 fontWeight: FontWeight.w600,
+                          //                 fontSize: 18.sp,
+                          //                 color: Colors.white),
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     )
+                          //   ],
+                          // ),
                         ],
                       ),
                     ),

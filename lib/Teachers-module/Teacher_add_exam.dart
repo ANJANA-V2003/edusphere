@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Teacher_AddExam extends StatefulWidget {
@@ -30,7 +31,7 @@ class _Teacher_AddExamState extends State<Teacher_AddExam> {
   final TextEditingController exmNameController = TextEditingController();
   final TextEditingController durationController = TextEditingController();
   final TextEditingController topicController = TextEditingController();
-  // final TextEditingController questionController = TextEditingController();
+  final TextEditingController subjectController = TextEditingController();
   // final TextEditingController answerController = TextEditingController();
   DateTime? selectedDate;
 
@@ -60,14 +61,16 @@ class _Teacher_AddExamState extends State<Teacher_AddExam> {
     }
 
     try {
+      String formattedDate = DateFormat('dd-MM-yyyy').format(selectedDate!);
+
       await FirebaseFirestore.instance.collection("Teacher_exams").add({
         "Name": exmNameController.text,
         "Duration": durationController.text,
-        "Date": Timestamp.fromDate(DateTime(
-            selectedDate!.year, selectedDate!.month, selectedDate!.day)),
+        "Date": formattedDate,
         "Class": selectedClass,
         "Topic": topicController.text,
         'Teacher_id': User_id,
+        'Subject': subjectController.text
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -135,14 +138,21 @@ class _Teacher_AddExamState extends State<Teacher_AddExam> {
                 ),
               ),
             ),
-            // SizedBox(height: 16.h),
-            // TextFormField(
-            //   controller: quizDescriptionController,
-            //   decoration: InputDecoration(
-            //     border: OutlineInputBorder(),
-            //     labelText: 'Quiz Description',
-            //   ),
-            // ),
+            SizedBox(height: 16.h),
+            Padding(
+              padding:  EdgeInsets.only(left: 10.w,right: 10.w),
+              child: TextFormField(
+                controller: subjectController,
+                decoration: InputDecoration(
+                  fillColor: Color(0xffD9D9D9),
+                  filled: true,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(10.r)),
+                  hintText: 'Subject Name',
+                ),
+              ),
+            ),
             SizedBox(height: 16.h),
             Padding(
               padding: EdgeInsets.only(left: 10.w, right: 10.w),
@@ -154,7 +164,7 @@ class _Teacher_AddExamState extends State<Teacher_AddExam> {
                   border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10.r)),
-                  labelText:  'Select Date',
+                  labelText: 'Select Date',
                   suffixIcon: IconButton(
                     icon: Icon(Icons.calendar_today),
                     onPressed: () => _selectDate(context),
@@ -234,7 +244,7 @@ class _Teacher_AddExamState extends State<Teacher_AddExam> {
             //     ],
             //   ),
             // ),
-            SizedBox(height: 180.h),
+            SizedBox(height: 120.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

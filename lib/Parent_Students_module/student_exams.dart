@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Student_Exams extends StatefulWidget {
   const Student_Exams({super.key});
@@ -24,6 +26,23 @@ class _Student_ExamsState extends State<Student_Exams> {
         selectedDate = picked;
       });
     }
+  }
+
+  String? studentClass;
+
+  @override
+  void initState() {
+    super.initState();
+    loadClass();
+  }
+
+  Future<void> loadClass() async {
+    final prefs = await SharedPreferences.getInstance();
+    final loadedClass = prefs.getString("student_class");
+    print("//////Loaded student class: $loadedClass"); // <-- DEBUG
+    setState(() {
+      studentClass = loadedClass;
+    });
   }
 
   @override
@@ -50,102 +69,160 @@ class _Student_ExamsState extends State<Student_Exams> {
         padding: EdgeInsets.all(16.w),
         child: Column(
           children: [
-            GestureDetector(
-              onTap: () => _selectDate(context),
-              child: Container(
-                height: 50.h,
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blue),
-                  borderRadius: BorderRadius.circular(12.r),
-                  color: Colors.pink.shade50,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      selectedDate == null
-                          ? 'Select date'
-                          : '${selectedDate!.day}-${selectedDate!.month}-${selectedDate!.year}',
-                      style: GoogleFonts.poppins(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Icon(Icons.calendar_today, size: 18.sp)
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(itemCount: 2,
-                itemBuilder: (context, index) => Padding(
-                  padding:  EdgeInsets.only(top: 15.h),
-                  child: Container(
-                    width: 320.w,height: 90.h,
-                    padding: EdgeInsets.all(12.w),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 50.w,
-                          padding: EdgeInsets.symmetric(vertical: 8.h),
-                          child: Column(
-                            children: [
-                              Text(
-                                "JAN",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
+            // GestureDetector(
+            //   onTap: () => _selectDate(context),
+            //   child: Container(
+            //     height: 50.h,
+            //     width: double.infinity,
+            //     padding: EdgeInsets.symmetric(horizontal: 16.w),
+            //     decoration: BoxDecoration(
+            //       border: Border.all(color: Colors.blue),
+            //       borderRadius: BorderRadius.circular(12.r),
+            //       color: Colors.pink.shade50,
+            //     ),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //       children: [
+            //         Text(
+            //           selectedDate == null
+            //               ? 'Select date'
+            //               : '${selectedDate!.day}-${selectedDate!.month}-${selectedDate!.year}',
+            //           style: GoogleFonts.poppins(
+            //             fontSize: 14.sp,
+            //             fontWeight: FontWeight.w500,
+            //           ),
+            //         ),
+            //         Icon(Icons.calendar_today, size: 18.sp)
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            studentClass == null
+                ? const Center(child: CircularProgressIndicator())
+                : StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection("Teacher_exams")
+                        // .where("class", isEqualTo: studentClass)
+                        // .orderBy("timestamp", descending: true) // optional
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                            child:
+                                CircularProgressIndicator()); //loading action , shows that data is
+                      }
+
+                      if (!snapshot.hasData) {
+                        // to check if there is data if not it returns the text
+                        return Center(child: Text("No data found"));
+                      }
+
+                      var exams = snapshot.data!.docs;
+
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount: exams.length,
+                          itemBuilder: (context, index) => Padding(
+                            padding: EdgeInsets.only(top: 15.h),
+                            child: Container(
+                              width: 320.w,
+                              height: 140.h,
+                              padding: EdgeInsets.all(12.w),
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade300,
+                                borderRadius: BorderRadius.circular(12.r),
                               ),
-                              Text(
-                                "25",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              child: Row(
+                                children: [
+                                  // Container(
+                                  //   width: 50.w,
+                                  //   padding: EdgeInsets.symmetric(vertical: 8.h),
+                                  //   child: Column(
+                                  //     children: [
+                                  //       // Text(
+                                  //       //   "JAN",
+                                  //       //   style: GoogleFonts.poppins(
+                                  //       //     fontSize: 14.sp,
+                                  //       //     fontWeight: FontWeight.w600,
+                                  //       //   ),
+                                  //       // ),
+                                  //       // Text(
+                                  //       //   "25",
+                                  //       //   style: GoogleFonts.poppins(
+                                  //       //     fontSize: 16.sp,
+                                  //       //     fontWeight: FontWeight.bold,
+                                  //       //   ),
+                                  //       // ),
+                                  //     ],
+                                  //   ),
+                                  // ),
+                                  // // VerticalDivider(width: 20.w, color: Colors.black),
+                                  // SizedBox(width: 12.w),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          top: 8.h,
+                                        ),
+                                        child: Text(
+                                          exams[index]["Name"],
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.subject, size: 14.sp),
+                                          SizedBox(width: 5.w),
+                                          Text(
+                                            exams[index]["Subject"],
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14.sp),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.access_time, size: 14.sp),
+                                          SizedBox(width: 5.w),
+                                          Text(
+                                            exams[index]["Duration"],
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14.sp),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            exams[index]["Topic"],
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14.sp),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Date: ${exams[index]["Date"]}",
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14.sp),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  )
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
-                        VerticalDivider(width: 20.w, color: Colors.black),
-                        SizedBox(width: 12.w),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:  EdgeInsets.only(top: 8.h,),
-                              child: Text(
-                                "Math",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Icon(Icons.access_time, size: 14.sp),
-                                SizedBox(width: 5.w),
-                                Text(
-                                  "9.00 am - 10.00 am",
-                                  style: GoogleFonts.poppins(fontSize: 14.sp),
-                                ),
-                              ],
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            )
+                      );
+                    })
           ],
         ),
       ),

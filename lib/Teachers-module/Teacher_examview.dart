@@ -59,7 +59,7 @@ class _Teacher_ExamviewState extends State<Teacher_Examview> {
                   selectedClass = newValue;
                 });
               },
-              items: ['Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5']
+              items: ['1', '2', '3', '4', '5']
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -74,16 +74,21 @@ class _Teacher_ExamviewState extends State<Teacher_Examview> {
           ),
           Expanded(
             child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("Teacher_exams")
-              .where("Teacher_id",isEqualTo: User_id)
-                  .snapshots(),
+              stream: selectedClass == null
+                  ? FirebaseFirestore.instance
+                      .collection("Teacher_exams")
+                      .where("Teacher_id", isEqualTo: User_id)
+                      .snapshots()
+                  : FirebaseFirestore.instance
+                      .collection("Teacher_exams")
+                      .where("Teacher_id", isEqualTo: User_id)
+              .where("Class",isEqualTo: selectedClass)
+                      .snapshots(),
               builder: (context, snapshot) {
-
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                       child:
-                      CircularProgressIndicator()); //loading action , shows that data is
+                          CircularProgressIndicator()); //loading action , shows that data is
                 }
 
                 if (!snapshot.hasData) {
@@ -91,8 +96,7 @@ class _Teacher_ExamviewState extends State<Teacher_Examview> {
                   return Center(child: Text("No data found"));
                 }
 
-                var exams= snapshot.data!.docs;
-
+                var exams = snapshot.data!.docs;
 
                 return ListView.builder(
                   itemCount: exams.length,
@@ -134,7 +138,7 @@ class _Teacher_ExamviewState extends State<Teacher_Examview> {
                           Row(
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(left: 10.w,top: 10.h),
+                                padding: EdgeInsets.only(left: 10.w, top: 10.h),
                                 child: Text(
                                   "Duration : ${exams[index]['Duration']}",
                                   style: GoogleFonts.poppins(

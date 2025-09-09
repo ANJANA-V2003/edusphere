@@ -12,7 +12,6 @@ class Teacher_AddExam extends StatefulWidget {
 }
 
 class _Teacher_AddExamState extends State<Teacher_AddExam> {
-
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -20,7 +19,7 @@ class _Teacher_AddExamState extends State<Teacher_AddExam> {
   }
 
   Future<void> getdatas() async {
-    SharedPreferences teacher_data= await SharedPreferences.getInstance();
+    SharedPreferences teacher_data = await SharedPreferences.getInstance();
     setState(() {
       User_id = teacher_data.getString("user_id");
     });
@@ -64,7 +63,8 @@ class _Teacher_AddExamState extends State<Teacher_AddExam> {
       await FirebaseFirestore.instance.collection("Teacher_exams").add({
         "Name": exmNameController.text,
         "Duration": durationController.text,
-        "Date": Timestamp.fromDate(DateTime(selectedDate!.year,selectedDate!.month,selectedDate!.day)),
+        "Date": Timestamp.fromDate(DateTime(
+            selectedDate!.year, selectedDate!.month, selectedDate!.day)),
         "Class": selectedClass,
         "Topic": topicController.text,
         'Teacher_id': User_id,
@@ -75,9 +75,11 @@ class _Teacher_AddExamState extends State<Teacher_AddExam> {
       );
 
       Navigator.pop(context);
-    } catch (e) {ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Failed to add the exam details: \$e")),
-    );}
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Failed to add the exam details: \$e")),
+      );
+    }
   }
 
   @override
@@ -119,11 +121,18 @@ class _Teacher_AddExamState extends State<Teacher_AddExam> {
               ),
             ),
             SizedBox(height: 16.h),
-            TextFormField(
-              controller: exmNameController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Exam Name',
+            Padding(
+              padding: EdgeInsets.only(left: 10.w, right: 10.w),
+              child: TextFormField(
+                controller: exmNameController,
+                decoration: InputDecoration(
+                  fillColor: Color(0xffD9D9D9),
+                  filled: true,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(10.r)),
+                  hintText: 'Exam Name',
+                ),
               ),
             ),
             // SizedBox(height: 16.h),
@@ -135,35 +144,57 @@ class _Teacher_AddExamState extends State<Teacher_AddExam> {
             //   ),
             // ),
             SizedBox(height: 16.h),
-            TextFormField(
-              readOnly: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Select Date',
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.calendar_today),
-                  onPressed: () => _selectDate(context),
+            Padding(
+              padding: EdgeInsets.only(left: 10.w, right: 10.w),
+              child: TextFormField(
+                readOnly: true,
+                decoration: InputDecoration(
+                  fillColor: Color(0xffD9D9D9),
+                  filled: true,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(10.r)),
+                  labelText:  'Select Date',
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.calendar_today),
+                    onPressed: () => _selectDate(context),
+                  ),
                 ),
-              ),
-              controller: TextEditingController(
-                text: selectedDate == null
-                    ? ''
-                    : "${selectedDate!.toLocal()}".split(' ')[0],
+                controller: TextEditingController(
+                  text: selectedDate == null
+                      ? ''
+                      : "${selectedDate!.toLocal()}".split(' ')[0],
+                ),
               ),
             ),
             SizedBox(height: 16.h),
-            TextFormField(
-              controller: durationController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Enter Duration',
+            Padding(
+              padding: EdgeInsets.only(left: 10.w, right: 10.w),
+              child: TextFormField(
+                controller: durationController,
+                decoration: InputDecoration(
+                  fillColor: Color(0xffD9D9D9),
+                  filled: true,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(10.r)),
+                  hintText: 'Enter Duration',
+                ),
               ),
-            ), SizedBox(height: 16.h),
-            TextFormField(
-              controller: topicController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Enter Topic',
+            ),
+            SizedBox(height: 16.h),
+            Padding(
+              padding: EdgeInsets.only(left: 10.w, right: 10.w),
+              child: TextFormField(
+                controller: topicController,
+                decoration: InputDecoration(
+                  fillColor: Color(0xffD9D9D9),
+                  filled: true,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(10.r)),
+                  hintText: 'Enter Topic',
+                ),
               ),
             ),
             SizedBox(height: 150.h),

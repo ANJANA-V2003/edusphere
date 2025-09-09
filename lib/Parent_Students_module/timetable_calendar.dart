@@ -61,7 +61,7 @@ class _Timetable_CalendarState extends State<Timetable_Calendar> {
                 Padding(
                   padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h),
                   child: Container(
-                    width: 380.w,
+                    width: 365.w,
                     height: 70.h,
                     padding: EdgeInsets.all(10.w),
                     decoration: BoxDecoration(

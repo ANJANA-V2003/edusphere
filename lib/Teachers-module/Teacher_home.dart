@@ -35,6 +35,7 @@ class _Teacher_HomeState extends State<Teacher_Home> {
 
   @override
   Widget build(BuildContext context) {
+
     return FutureBuilder(
       future: FirebaseFirestore.instance
           .collection("Teachers_register")
@@ -85,7 +86,7 @@ class _Teacher_HomeState extends State<Teacher_Home> {
                                   width: 20.w,
                                 ),
                                 CircleAvatar(
-                                  radius: 35.r,
+                                  radius: 33.r,
                                   backgroundImage:
                                       AssetImage("assets/images/catherine.png"),
                                 ),
@@ -130,7 +131,7 @@ class _Teacher_HomeState extends State<Teacher_Home> {
                                               "No data found",
                                           style: GoogleFonts.poppins(
                                               fontSize: 22.sp,
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.w700,
                                               color: Colors.white),
                                         )
                                       ],
@@ -145,25 +146,6 @@ class _Teacher_HomeState extends State<Teacher_Home> {
                     )
                   ],
                 ),
-                // SizedBox(
-                //   height: 10.h,
-                // ),
-                // Padding(
-                //   padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                //   child: TextFormField(
-                //     decoration: InputDecoration(
-                //         prefixIcon: Icon(Icons.search),
-                //         hintText: "Search",
-                //         hintStyle: GoogleFonts.poppins(
-                //             fontWeight: FontWeight.w500,
-                //             fontSize: 15.sp,
-                //             color: Colors.grey.shade600),
-                //         border: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(10.r),
-                //             borderSide: BorderSide(
-                //                 color: Colors.grey.shade600, width: 2))),
-                //   ),
-                // ),
                 SizedBox(
                   height: 15.h,
                 ),
@@ -190,7 +172,7 @@ class _Teacher_HomeState extends State<Teacher_Home> {
                           return Container(
                             width: 280.w,
                             margin: EdgeInsets.only(
-                                left: 20.w, right: 10.w, bottom: 10.h, top: 5.h),
+                                left: 15.w, right: 10.w, bottom: 10.h, top: 5.h),
                             padding: EdgeInsets.all(12.w),
                             decoration: BoxDecoration(
                               color: Color(0xff23ADB4),
@@ -219,14 +201,14 @@ class _Teacher_HomeState extends State<Teacher_Home> {
                                   notice["Details"] ?? "",
                                   maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 14.sp, color: Colors.white70),
+                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500,
+                                      fontSize: 16.sp, color: Colors.white70),
                                 ),
                                 SizedBox(height: 8.h),
                                 Text(
                                   notice["Date"] ?? "",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12.sp, color: Colors.white60),
+                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500,
+                                      fontSize: 14.sp, color: Colors.white60),
                                 ),
                               ],
                             ),

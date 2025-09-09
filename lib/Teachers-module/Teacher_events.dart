@@ -59,8 +59,8 @@ class _Teacher_EventsState extends State<Teacher_Events> {
                                   width: 10.w,
                                 ),
                                 Container(
-                                  height: 100.h,
-                                  width: 100.w,
+                                  height: 80.h,
+                                  width: 70.w,
                                   decoration: BoxDecoration(
                                       color: Colors.grey,
                                       image: DecorationImage(

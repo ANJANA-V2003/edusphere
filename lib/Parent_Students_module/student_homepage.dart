@@ -3,7 +3,7 @@ import 'package:edushpere/Parent_Students_module/Student_resultpage.dart';
 import 'package:edushpere/Parent_Students_module/student_exams.dart';
 import 'package:edushpere/Parent_Students_module/student_homeworks.dart';
 import 'package:edushpere/Parent_Students_module/student_notificationview.dart';
-import 'package:edushpere/Parent_Students_module/teachers_info_rating.dart';
+import 'package:edushpere/Parent_Students_module/teachers_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as badges;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -385,7 +385,7 @@ class _Student_HomepageState extends State<Student_Homepage> {
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(
                             builder: (context) {
-                              return Teachers_InfoRating();
+                              return Teachers_List();
                             },
                           ));
                         },

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Teachers_InfoRating extends StatefulWidget {
-  const Teachers_InfoRating({super.key});
+class Teachers_List extends StatefulWidget {
+  const Teachers_List({super.key});
 
   @override
-  State<Teachers_InfoRating> createState() => _Teachers_InfoRatingState();
+  State<Teachers_List> createState() => _Teachers_ListState();
 }
 
-class _Teachers_InfoRatingState extends State<Teachers_InfoRating> {
+class _Teachers_ListState extends State<Teachers_List> {
   @override
   Widget build(BuildContext context) {
     return Scaffold( appBar: AppBar(

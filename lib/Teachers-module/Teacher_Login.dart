@@ -84,8 +84,9 @@ class _TeacherLoginState extends State<TeacherLogin> {
             context,
             MaterialPageRoute(builder: (context) => Teacher_Navigationbar()),
           );
-        } else {
-          await FirebaseAuth.instance.signOut(); // sign out if rejected
+        } else if(status == 0 || status==2) {
+          // await FirebaseAuth.instance.signOut(); // sign out if rejected
+
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text("Your account request was rejected or not approved yet."),
@@ -94,13 +95,14 @@ class _TeacherLoginState extends State<TeacherLogin> {
           );
         }
       } else {
-        await FirebaseAuth.instance.signOut(); // No matching Firestore doc
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text("No matching teacher record found."),
             backgroundColor: Colors.red,
           ),
         );
+        await FirebaseAuth.instance.signOut(); // No matching Firestore doc
       }
     } on FirebaseAuthException catch (e) {
       String message = "Login failed. Please try again.";

@@ -24,9 +24,12 @@ class _Student_RegisterState extends State<Student_Register> {
   final stdnt_idctrl = TextEditingController();
   final dateController = TextEditingController();
   final gardiannamectrl = TextEditingController();
-  final classctrl = TextEditingController();
+  // final classctrl = TextEditingController();
 
   DateTime? selectedDate;
+
+  String? selectedClassId;
+  String? selectedClassName;
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -36,28 +39,44 @@ class _Student_RegisterState extends State<Student_Register> {
       lastDate: DateTime(2101),
     );
     if (picked != null) {
-      String formattedDate = "${picked.toLocal()}".split(' ')[0]; // Format YYYY-MM-DD
+      String formattedDate =
+          "${picked.toLocal()}".split(' ')[0]; // Format YYYY-MM-DD
       dateController.text = formattedDate; // Update the TextField
     }
   }
 
   Future<void> student_data() async {
     if (form_key.currentState!.validate()) {
-      FirebaseFirestore.instance.collection("Students_register").add({
+      if (selectedClassId == null) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Please select a class')));
+        return;
+      }
+      DocumentReference studentRef =
+          await FirebaseFirestore.instance.collection("Students_register").add({
         "First_Name": fnamectrl.text,
         "Last_Name": lnamectrl.text,
         "Gaurdian_Name": gardiannamectrl.text,
         "Date_of_Birth": dateController.text,
-        "Phone": numctrl.text,
+        // "Phone": numctrl.text,
         "Age": agectrl.text,
         "ID": stdnt_idctrl.text,
         "Place": placectrl.text,
-        "Class": classctrl.text,
+        "Class": selectedClassId,
+        "ClassName": selectedClassName,
         "Profile_path":
-        "https://th.bing.com/th/id/OIP.A1JjNu8jIRxaTJHbD_EtFwHaIJ?rs=1&pid=ImgDetMain"
+            "https://th.bing.com/th/id/OIP.A1JjNu8jIRxaTJHbD_EtFwHaIJ?rs=1&pid=ImgDetMain"
       });
+
+      await FirebaseFirestore.instance
+          .collection("Classes")
+          .doc(selectedClassId)
+          .update({
+        "students": FieldValue.arrayUnion([studentRef.id])
+      });
+
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString("student_class", classctrl.text.trim());
+      await prefs.setString("student_class",selectedClassId!);
 
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) {
@@ -68,7 +87,6 @@ class _Student_RegisterState extends State<Student_Register> {
         content: Text('Account Created Successfully'),
       ));
     }
-
   }
 
   @override
@@ -162,7 +180,7 @@ class _Student_RegisterState extends State<Student_Register> {
                           fontSize: 15.sp, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
                         borderSide:
-                        BorderSide(width: 1.w, color: Colors.grey.shade400),
+                            BorderSide(width: 1.w, color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(8.r),
                       )),
                 ),
@@ -170,21 +188,21 @@ class _Student_RegisterState extends State<Student_Register> {
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
                 child: TextFormField(
-                  readOnly: true,
-                  decoration: InputDecoration(filled: true,
-                    fillColor: Color(0xffFFF8F8),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.r)),
-                    labelText: 'Date of birth',
-                    labelStyle: GoogleFonts.poppins(
-                        fontSize: 15.sp, fontWeight: FontWeight.w600),
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.calendar_today),
-                      onPressed: () => _selectDate(context),
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xffFFF8F8),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.r)),
+                      labelText: 'Date of birth',
+                      labelStyle: GoogleFonts.poppins(
+                          fontSize: 15.sp, fontWeight: FontWeight.w600),
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.calendar_today),
+                        onPressed: () => _selectDate(context),
+                      ),
                     ),
-                  ),
-                  controller: dateController
-                ),
+                    controller: dateController),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
@@ -208,29 +226,71 @@ class _Student_RegisterState extends State<Student_Register> {
                         borderRadius: BorderRadius.circular(8.r),
                       )),
                 ),
-              ), Padding(
+              ),
+              Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
-                child: TextFormField(
-                  controller: classctrl,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Empty class";
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance.collection("Classes").snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return CircularProgressIndicator();
                     }
-                    return null;
+                    var classes = snapshot.data!.docs;
+
+                    return DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        fillColor: Color(0xffFFF8F8),
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.r),
+                          borderSide: BorderSide(color: Colors.grey.shade400, width: 1.w),
+                        ),
+                      ),
+                      hint: Text("Select Class", style: GoogleFonts.poppins(fontSize: 15.sp,fontWeight: FontWeight.w600)),
+                      value: selectedClassId,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedClassId = value;
+                          selectedClassName = classes
+                              .firstWhere((doc) => doc.id == value)["className"];
+                        });
+                      },
+                      items: classes.map((doc) {
+                        return DropdownMenuItem<String>(
+                          value: doc.id,
+                          child: Text(doc["className"]),
+                        );
+                      }).toList(),
+                      validator: (value) =>
+                      value == null ? "Please select a class" : null,
+                    );
                   },
-                  decoration: InputDecoration(
-                      fillColor: Color(0xffFFF8F8),
-                      filled: true,
-                      hintText: "Class",
-                      hintStyle: GoogleFonts.poppins(
-                          fontSize: 15.sp, fontWeight: FontWeight.w600),
-                      border: OutlineInputBorder(
-                        borderSide:
-                        BorderSide(width: 1.w, color: Colors.grey.shade400),
-                        borderRadius: BorderRadius.circular(8.r),
-                      )),
                 ),
               ),
+
+              // Padding(
+              //   padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
+              //   child: TextFormField(
+              //     controller: classctrl,
+              //     validator: (value) {
+              //       if (value!.isEmpty) {
+              //         return "Empty class";
+              //       }
+              //       return null;
+              //     },
+              //     decoration: InputDecoration(
+              //         fillColor: Color(0xffFFF8F8),
+              //         filled: true,
+              //         hintText: "Class",
+              //         hintStyle: GoogleFonts.poppins(
+              //             fontSize: 15.sp, fontWeight: FontWeight.w600),
+              //         border: OutlineInputBorder(
+              //           borderSide:
+              //               BorderSide(width: 1.w, color: Colors.grey.shade400),
+              //           borderRadius: BorderRadius.circular(8.r),
+              //         )),
+              //   ),
+              // ),
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
                 child: TextFormField(
@@ -277,36 +337,36 @@ class _Student_RegisterState extends State<Student_Register> {
                       )),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
-                child: TextFormField(
-                  controller: numctrl,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Empty Number";
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                      fillColor: Color(0xffFFF8F8),
-                      filled: true,
-                      hintText: "Phone Number",
-                      hintStyle: GoogleFonts.poppins(
-                          fontSize: 15.sp, fontWeight: FontWeight.w600),
-                      border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(width: 1.w, color: Colors.grey.shade400),
-                        borderRadius: BorderRadius.circular(8.r),
-                      )),
-                ),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 35.h),
+              //   child: TextFormField(
+              //     controller: numctrl,
+              //     validator: (value) {
+              //       if (value!.isEmpty) {
+              //         return "Empty Number";
+              //       }
+              //       return null;
+              //     },
+              //     decoration: InputDecoration(
+              //         fillColor: Color(0xffFFF8F8),
+              //         filled: true,
+              //         hintText: "Phone Number",
+              //         hintStyle: GoogleFonts.poppins(
+              //             fontSize: 15.sp, fontWeight: FontWeight.w600),
+              //         border: OutlineInputBorder(
+              //           borderSide:
+              //               BorderSide(width: 1.w, color: Colors.grey.shade400),
+              //           borderRadius: BorderRadius.circular(8.r),
+              //         )),
+              //   ),
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 80.h),
                     child: GestureDetector(
-                      onTap:() => student_data(),
+                      onTap: () => student_data(),
                       child: Container(
                         height: 50.h,
                         width: 200.w,

@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Admin_Students extends StatefulWidget {
-  const Admin_Students({super.key});
+class Admin_Classes extends StatefulWidget {
+  const Admin_Classes({super.key});
 
   @override
-  State<Admin_Students> createState() => _Admin_StudentsState();
+  State<Admin_Classes> createState() => _Admin_ClassesState();
 }
 
-class _Admin_StudentsState extends State<Admin_Students> {
+class _Admin_ClassesState extends State<Admin_Classes> {
   int selectedCategory = 0;
 
   final List<String> categories = [

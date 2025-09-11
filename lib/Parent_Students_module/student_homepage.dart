@@ -85,7 +85,10 @@ class _Student_HomepageState extends State<Student_Homepage> {
                                   CircleAvatar(
                                     radius: 35.r,
                                     backgroundImage:
-                                        AssetImage("assets/images/father.jpg"),
+                                        NetworkImage(
+                                            student_detail["Profile_path"]
+                                            // "assets/images/father.jpg"
+                                        ),
                                   ),
                                   SizedBox(
                                     width: 15.w,
@@ -195,8 +198,8 @@ class _Student_HomepageState extends State<Student_Homepage> {
                                 children: [
                                   CircleAvatar(
                                     backgroundImage:
-                                        AssetImage("assets/images/Max.png"),
-                                    radius: 30.r,
+                                        NetworkImage(student_detail["Profile_path"],),
+                                    radius: 30.r,backgroundColor: Color(0xff23ADB4),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(left: 20.w),

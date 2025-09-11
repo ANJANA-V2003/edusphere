@@ -240,40 +240,7 @@ class _Admin_Teacher_detailsState extends State<Admin_Teacher_details> {
                   ),
                 ],
               )
-                  :Teacher_datas["Status"] == 1?Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 50.h,
-                    width: 140.w,
-                    decoration: BoxDecoration(
-                        borderRadius:
-                        BorderRadius.circular(5.r),
-                        color: Colors.green
-                      // Color(0xff73ABFF)
-                    ),
-                    child: Column(
-                      mainAxisAlignment:
-                      MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Accepted",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ): Row(
+                  :Teacher_datas["Status"] == 2?Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
@@ -307,6 +274,7 @@ class _Admin_Teacher_detailsState extends State<Admin_Teacher_details> {
                   ),
                 ],
               )
+                  :SizedBox.shrink()
             ],
           ),
         );

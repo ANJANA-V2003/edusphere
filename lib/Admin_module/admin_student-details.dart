@@ -59,8 +59,8 @@ class _Admin_Student_detailsState extends State<Admin_Student_details> {
                 // Profile Image
                 CircleAvatar(
                   radius: 45.r,
-                  backgroundImage: AssetImage(
-                      "assets/images/Elsa.png"), // Replace with actual image path
+                  backgroundImage: NetworkImage(
+                      student_datas["Profile_path"]), // Replace with actual image path
                   backgroundColor: Colors.grey[200],
                 ),
                 SizedBox(height: 10),
@@ -136,26 +136,6 @@ class _Admin_Student_detailsState extends State<Admin_Student_details> {
                                 width: 90.w,
                               ),
                               Text("${student_datas["Age"]?? "No data found"} years",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500)),
-                            ],
-                          ),
-                          SizedBox(height: 10.h),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 50.w,
-                              ),
-                              Text("Phone :",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600)),
-                              SizedBox(
-                                width: 63.w,
-                              ),
-                              Text(student_datas["Phone"] ?? "No data found",
                                   style: GoogleFonts.poppins(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500)),

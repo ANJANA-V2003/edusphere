@@ -55,7 +55,7 @@ class _Admin_HomeState extends State<Admin_Home> {
                   drawerItem(
                       Icons.school, "Teachers", context, Admin_Teachers()),
                   drawerItem(
-                      Icons.people, "Students", context, Admin_Classes()),
+                      Icons.people, "Classes", context, Admin_Classes()),
                   drawerItem(Icons.article, "Notice", context, Admin_Notice()),
                   drawerItem(Icons.person, "Profile", context, Admin_Home()),
                   drawerItem(Icons.logout, "Sign out", context, Admin_Home()),

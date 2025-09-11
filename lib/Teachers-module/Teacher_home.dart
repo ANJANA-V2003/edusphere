@@ -88,7 +88,7 @@ class _Teacher_HomeState extends State<Teacher_Home> {
                                 CircleAvatar(
                                   radius: 33.r,
                                   backgroundImage:
-                                      AssetImage("assets/images/catherine.png"),
+                                      NetworkImage(teacher_detail["Profile_path"]),
                                 ),
                                 SizedBox(
                                   width: 15.w,

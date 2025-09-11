@@ -31,7 +31,7 @@ class _Admin_ClassesState extends State<Admin_Classes> {
           onPressed: () => Navigator.pop(context),
           icon: Icon(CupertinoIcons.back, color: Colors.white),
         ),
-        title: Text("Students",
+        title: Text("Classes",
             style: GoogleFonts.poppins(
                 fontSize: 22.sp,
                 fontWeight: FontWeight.w600,
@@ -115,7 +115,7 @@ class _Admin_ClassesState extends State<Admin_Classes> {
                           children: [
                             CircleAvatar(
                                 backgroundImage:
-                                    AssetImage("assets/images/Elsa.png")),
+                                    NetworkImage(Student_datas[index]['Profile_path'])),
                             SizedBox(width: 10.w),
                             Expanded(
                                 child: Text(Student_datas[index]["First_Name"],

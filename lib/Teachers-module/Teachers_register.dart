@@ -75,7 +75,7 @@ class _Teachers_RegisterState extends State<Teachers_Register> {
           "Email": email_ctrl.text,
           "Status": 0,
           "Profile_path":
-          "https://static.vecteezy.com/system/resources/previews/021/548/095/non_2x/default-profile-picture-avatar-user-avatar-icon-person-icon-head-icon-profile-picture-icons-default-anonymous-user-male-and-female-businessman-photo-placeholder-social-network-avatar-portrait-free-vector.jpg"
+          "https://openseauserdata.com/files/7f16cec1cc177a7e148067006e73c02a.png"
         });
 
         // Navigate to login page

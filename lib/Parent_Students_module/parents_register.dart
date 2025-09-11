@@ -67,7 +67,8 @@ class _Parents_RegisterState extends State<Parents_Register> {
           "Phone": phnctrl.text,
           "Email": mailctrl.text,
           "Profile_path":
-          "https://th.bing.com/th/id/OIP.A1JjNu8jIRxaTJHbD_EtFwHaIJ?rs=1&pid=ImgDetMain"
+              "https://openseauserdata.com/files/7f16cec1cc177a7e148067006e73c02a.png"
+           // "https://th.bing.com/th/id/OIP.A1JjNu8jIRxaTJHbD_EtFwHaIJ?rs=1&pid=ImgDetMain"
         });
 
         // Navigate and show success

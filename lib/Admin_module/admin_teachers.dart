@@ -73,10 +73,12 @@ class _Admin_TeachersState extends State<Admin_Teachers> {
                stream:selectedCategory == 0
                   ? FirebaseFirestore.instance
                   .collection("Teachers_register")
+               .where("Status",isNotEqualTo: 2)
                   .snapshots()
                   : FirebaseFirestore.instance
                   .collection("Teachers_register")
                   .where("Subject", isEqualTo: categories[selectedCategory])
+               .where("Status",isNotEqualTo: 2)
                   .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {

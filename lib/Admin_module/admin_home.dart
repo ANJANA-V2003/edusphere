@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edushpere/Admin_module/admin_notice.dart';
 import 'package:edushpere/Admin_module/admin_classes.dart';
 import 'package:edushpere/Admin_module/admin_teachers.dart';
@@ -54,8 +55,7 @@ class _Admin_HomeState extends State<Admin_Home> {
                   drawerItem(Icons.home, "Home", context, Admin_Home()),
                   drawerItem(
                       Icons.school, "Teachers", context, Admin_Teachers()),
-                  drawerItem(
-                      Icons.people, "Classes", context, Admin_Classes()),
+                  drawerItem(Icons.people, "Classes", context, Admin_Classes()),
                   drawerItem(Icons.article, "Notice", context, Admin_Notice()),
                   drawerItem(Icons.person, "Profile", context, Admin_Home()),
                   drawerItem(Icons.logout, "Sign out", context, Admin_Home()),
@@ -159,10 +159,26 @@ class _Admin_HomeState extends State<Admin_Home> {
                                 height: 20.h,
                                 width: 10.w,
                               ),
-                              Text("100",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.w500)),
+                              StreamBuilder(
+                                  stream: FirebaseFirestore.instance
+                                      .collection("Teachers_register")
+                                      .where("Status", isNotEqualTo: 2)
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return Text("0",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 20.sp,
+                                              fontWeight: FontWeight.w500));
+                                    }
+
+                                    int teacherCount =
+                                        snapshot.data!.docs.length;
+                                    return Text(teacherCount.toString(),
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w500));
+                                  }),
                             ],
                           ),
                         ),
@@ -199,18 +215,31 @@ class _Admin_HomeState extends State<Admin_Home> {
                               SizedBox(
                                 width: 10.w,
                               ),
-                              Text("Classes",
+                              Text("Students",
                                   style: GoogleFonts.poppins(
                                       fontSize: 18.sp,
                                       fontWeight: FontWeight.bold)),
-                              SizedBox(
-                                height: 20.h,
-                                width: 10.w
+                              SizedBox(height: 20.h, width: 10.w),
+                              StreamBuilder(
+                                stream:FirebaseFirestore.instance
+                                    .collection("Students_register")
+                                    .snapshots() ,
+                                builder: (context, snapshot) {
+
+                                  if (!snapshot.hasData) {
+                                    return Text("0",
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 20.sp, fontWeight: FontWeight.w500));
+                                  }
+
+                                  int studentCount = snapshot.data!.docs.length;
+
+                                  return Text(studentCount.toString(),
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.w500));
+                                }
                               ),
-                              Text("1-5",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.w500)),
                             ],
                           ),
                         ),

@@ -78,7 +78,7 @@ class _Admin_TeachersState extends State<Admin_Teachers> {
                   : FirebaseFirestore.instance
                   .collection("Teachers_register")
                   .where("Subject", isEqualTo: categories[selectedCategory])
-               .where("Status",isNotEqualTo: 2)
+               .where("Status",isEqualTo: 1)
                   .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -93,6 +93,11 @@ class _Admin_TeachersState extends State<Admin_Teachers> {
               }
 
               var Teachers_datas = snapshot.data!.docs;
+
+              print("Selected Category: ${categories[selectedCategory]}");
+              for (var doc in Teachers_datas) {
+                print("Teacher: ${doc['Name']} - Subject: ${doc['Subject']} - Status: ${doc['Status']}");
+              }
 
               return Expanded(
                 child: ListView.builder(
